@@ -1,0 +1,132 @@
+<form [formGroup]="financialForm" (ngSubmit)="saveFinancialInfo()">
+  <div>
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="card">
+          <div class="card-body">           
+
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <label>Bank Reports</label>
+                <input
+                  ng2FileSelect
+                  [uploader]="bankReportUploader"
+                  class="form-control"                 
+                  type="file"
+                  id="bankPDF"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-default"
+                  
+                >
+                  clear file
+                </button>
+              </div>
+
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <label>License Reports</label>
+                <input
+                  ng2FileSelect
+                  [uploader]="licenseReportUploader"
+                  class="form-control"                  
+                  type="file"
+                  id="licenseRep"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-default"
+                  
+                >
+                  clear file
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <label>Certificates</label>
+                <input
+                  ng2FileSelect
+                  [uploader]="certificateUploader"
+                  class="form-control"                  
+                  type="file"
+                  id="certificateRep"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-default"
+                 
+                >
+                  clear file
+                </button>
+              </div>
+
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <label>Reports</label>
+                <input
+                  ng2FileSelect
+                  [uploader]="reportsUploader"
+                  class="form-control"                 
+                  type="file"
+                  id="reports"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-default"
+                 
+                >
+                  clear file
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <label>Financial Statements</label>
+                <input
+                  ng2FileSelect
+                  [uploader]="finStatementsUploader"
+                  class="form-control"                 
+                  type="file"
+                  id="finState"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-default"
+                
+                >
+                  clear file
+                </button>
+              </div>
+
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <label>Insurance Info</label>
+                <input
+                  ng2FileSelect
+                  [uploader]="insuranceUploader"
+                  class="form-control"                 
+                  type="file"
+                  id="insurance"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-default"
+                 
+                >
+                  clear file
+                </button>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-block btn-success">Save </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

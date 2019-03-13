@@ -1,0 +1,124 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+          <div class="col-sm-6 col-lg-6 ">
+            <div class="form-group">
+              <!-- <label><h3>Choose business to create a checklist</h3></label> -->
+              <label><h3>Choose business to create a Process Overview</h3></label>
+              <ng-select
+                [items]="list"
+                [(ngModel)]="businessTitle"
+                bindLabel="TITLE"
+                bindValue="COMPANY_ID"
+                placeholder="Select Business"
+              >
+              </ng-select>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row"> 
+            <div class="ml-auto ">      
+            <button
+              type="button"
+              class="btn btn-primary "
+              data-toggle="modal"
+              (click)="createChecklist()"
+            >
+              <i class="fa fa-plus"></i> Add Instruction
+            </button>
+            <a data-toggle="modal" (click)="myModal.show()" #showModal></a>    
+            
+            <button
+              type="button"
+              style="margin-left:5px"
+              class="btn btn-danger"           
+              (click)="clearChecklist()"
+            >
+            Clear
+            </button>
+            </div>   
+        </div>
+    </div>
+    <div class="card-body">    
+      <div class="row">
+        <div *ngIf="isChecklist" class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let l of CheckList">
+               {{l.Order_num}}.&nbsp; {{ l.Instruction }}
+            </li>
+          </ul>
+        </div>  
+      </div>
+      <div *ngIf="isChecklist" >        
+              <div class="row">
+                <label>Upload Document </label>
+                  <input   ng2FileSelect [uploader]="checklistUploader" class="form-control"  [(ngModel)]="pdfPage" 
+                               type="file" id="pdfFile">                        
+                  <button type="button" class="btn btn-sm btn-danger" (click)="clearPDF()">clear file</button>
+              </div> 
+              <div class="row">
+                <div class="ml-auto">
+                  <button 
+                    *ngIf="isChecklist" 
+                     class="btn btn-success " 
+                    (click)='create()'>
+                    Create
+                 </button>
+                </div>
+              </div>        
+       </div>   
+    </div>
+  </div>
+</div>
+
+<div
+  bsModal
+  #myModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Line</h4>
+        <button
+          type="button"
+          class="close"
+          (click)="myModal.hide()"
+          aria-label="Close"
+          #close
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label> CheckList </label>
+          <textarea
+            rows="4"
+            cols="80"
+            class="form-control"
+            [(ngModel)]="line"
+            placeholder="Write Your Instruction Here..."
+          >
+          </textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="myModal.hide()"
+        >
+          Close
+        </button>
+        <button type="submit" (click)="add()" class="btn btn-info ">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

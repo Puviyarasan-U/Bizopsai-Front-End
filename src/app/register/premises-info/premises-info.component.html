@@ -1,0 +1,193 @@
+<form [formGroup]="premises" (ngSubmit)="savePremisesInfo()">
+  <div>
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>Size Of Unit </label>
+                  <input
+                    type="text"
+                    formControlName="SizeOfUnit"
+                    class="form-control"
+                    placeholder="Size of Unit"
+                  />
+                  <div
+                    *ngIf="submitted && f.SizeOfUnit.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.SizeOfUnit.errors.required">
+                      Size is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <div class="form-group">
+                  <label>Space Type</label>
+                  <ng-select
+                    [items]="building_types"
+                    bindLabel="TYPES"
+                    bindValue="TYPES"
+                    placeholder="Select Type"
+                    formControlName="SpaceType"                   
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>State</label>
+                  <ng-select
+                    [items]="stateList"
+                    bindLabel="state"
+                    bindValue="state"
+                    placeholder="Select State"
+                    formControlName="State"                   
+                    (change)="changeState($event)"
+                    (clear)="changeState(undefined)"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <div class="form-group">
+                  <label>County</label>
+                  <ng-select
+                    [items]="citiesList"
+                    bindLabel="city"
+                    bindValue="city"
+                    placeholder="Select City"                   
+                    formControlName="County"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>Youtube Url </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Your Youtube Video Url"
+                    formControlName="YoutubeUrl"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.YoutubeUrl.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.YoutubeUrl.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.YoutubeUrl.errors.required">
+                      YoutubeUrl is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <label>Lease </label>
+                <div class="row" style="margin:auto">
+                  <div class="col-md-10 col-lg-10">
+                <input
+                  ng2FileSelect
+                 
+                  class="form-control"
+                  type="file"
+                />
+              </div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                 
+                >
+                  clear file
+                </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <label for="PrimaryImage">Upload Images</label>
+                <div class="row" style="margin:auto">
+                  <div class="col-md-10 col-lg-10">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="PrimaryImage"
+                  ng2FileSelect
+                  [uploader]="PrimeImgUploader"
+                  #fileInput
+                />
+              </div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                  (click)="clearPrimeImg()"
+                >
+                  clear file
+                </button>
+                </div>
+                <div class="row">
+                  <div *ngIf="isUpload">
+                    <img
+                      *ngFor="let img of primeImg"
+                      src="{{ 'data:image/jpg;base64,' + img.value }}"
+                      height="100"
+                      width="100"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <label for="SecondaryImage">Secondary Images</label>
+                <div class="row" style="margin:auto">
+                <div class="col-md-10 col-lg-10">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="SecondaryImage"
+                  ng2FileSelect
+                  [uploader]="SecImgUploader"
+                  multiple
+                  #fileInput
+                />
+              </div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                  (click)="clearSecImg()"
+                >
+                  clear file
+                </button>
+              </div>
+                <div class="row">
+                  <div *ngIf="isUpload">
+                    <img
+                      *ngFor="let img of SecImg"
+                      src="{{ 'data:image/jpg;base64,' + img.value }}"
+                      height="100"
+                      width="100"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <button type="submit" class="btn btn-block btn-success">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

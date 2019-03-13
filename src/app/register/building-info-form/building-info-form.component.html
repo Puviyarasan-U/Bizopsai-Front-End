@@ -1,0 +1,117 @@
+<form [formGroup]="building" (ngSubmit)="saveBuildingInfo()">
+  <div>
+    <div class="row">
+      <div class="col-md-12 col-lg-12 ">
+        <div class="card">
+          <div class="card-body">
+            <div class="row"> 
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>Size Of Building (sq.ft.) </label>
+                  <input
+                    type="text"
+                    formControlName="BuildingSize"
+                    class="form-control"
+                    placeholder="Size of Building (sq.ft)"
+                  />
+                  <div
+                    *ngIf="submitted && f.BuildingSize.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.BuildingSize.errors.required">
+                      Size is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <div class="form-group">
+                    <label>Built Year</label>
+                    <input
+                      type="text"
+                      formControlName="BuiltYear"
+                      class="form-control"
+                      placeholder="Build Year"
+                    />
+                    <div
+                      *ngIf="submitted && f.BuiltYear.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.BuiltYear.errors.required">
+                        Built Year is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+             
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>No Of Restrooms</label>
+                  <input
+                    type="text"
+                    formControlName="RestRoom"
+                    class="form-control"
+                    placeholder="No Of Restrooms"
+                  />
+                  <div
+                    *ngIf="submitted && f.RestRoom.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.RestRoom.errors.required">
+                      Number of Rest Room is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <div class="form-group">
+                  <label>Zoning</label>
+                  <input
+                    type="text"
+                    formControlName="BuildingZone"
+                    class="form-control"
+                    placeholder="Zoning"
+                  />
+                  <div
+                    *ngIf="submitted && f.BuildingZone.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.BuildingZone.errors.required">
+                      Zoning  required
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                      <label>Parking</label>
+                      <input
+                        type="text"
+                        formControlName="BuildingPark"
+                        class="form-control"
+                        placeholder="Parking"
+                      />
+                      <div
+                        *ngIf="submitted && f.BuildingPark.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.BuildingPark.errors.required">
+                          Zoning Details required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          <div>
+            <button type="submit" class="btn btn-block btn-success">Save </button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

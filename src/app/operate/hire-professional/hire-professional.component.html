@@ -1,0 +1,159 @@
+<div class="col-lg-12 col-sm-12 col-md-12">
+
+  <div class="col-md-10 col-sm-10  offset-md-1 offset-sm-1">
+    <div class="card">
+      <div class="card-header">
+        <h2> Hire a Professional </h2>
+      </div>
+      <!-- <h3 class="card-title">Hire a professional</h3> -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <div class="row justify-content-center">
+              <div class="form-group">
+                <label>Category</label>
+                <ng-select style="width:275px;font-weight:bold;" class="colour" [items]="categoryList" [multiple]="true"
+                  bindLabel="scname" groupBy="cname" placeholder="Select Category" [selectableGroup]="true"
+                  [closeOnSelect]="false" bindValue="scname" >
+                  <ng-template ng-optgroup-tmp style="font-weight:bold" let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.cname | uppercase}}
+                  </ng-template>
+                  <ng-template ng-option-tmp style="font-weight:normal" let-item="item" let-item$="item$" let-index="index">
+                    <input *ngIf='item.scname != undefined' id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
+                    {{item.scname}}
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+
+          <!-- </div>
+                    <div class="row">                          -->
+          <div class="col-md-6 col-lg-4">
+            <div class="row justify-content-center">
+              <div class="form-group">
+                <label>State</label>
+                <ng-select [items]="stateList" style="width:275px;font-weight: bold;" bindLabel="state" bindValue="state"
+                  placeholder="Select State"  (change)="changeState($event)" (clear)="changeState(undefined)">
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="row justify-content-center">
+              <div class="form-group">
+                <label>County</label>
+                <ng-select [items]="citiesList" style="width:275px;font-weight: bold;" bindLabel="city" bindValue="city"
+                  placeholder="Select County" >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+    <div class="row">
+      <!-- <div  >  -->
+      <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let l of professionalList ">
+        <div class="card" style="height: 450px;">
+          <span *ngIf="l.IMG_NAME==null">
+            <img class="card-img-top" src="{{'../assets/img/null.jpg'}}" height="200px" alt="Card image cap">
+          </span>
+          <span *ngIf="l.IMG_NAME!=null">
+            <img class="card-img-top" src="{{'../assets/img/' + l.IMG_NAME}}" height="200px" alt="Card image cap">
+          </span>
+          <div class="card-body">
+            <h3 class="card-title" style="height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold">{{l.USERNAME}}</h3>
+            <p class="card-text" style="height: 73px;overflow-y: hidden;text-align: justify;font-size: 13px;">{{l.ABOUT}}</p>
+            <hr>
+            <div class="row">
+              <h6 style="margin-left: 10px;">
+                <i class="icon-location-pin" style="color:red"></i>
+                &nbsp; {{l.HOME_ADDRESS }} </h6>
+              <h6 style="margin-left: auto; margin-right: 10px;">
+                <i class="icon-location-pin" style="color:red"></i>
+                &nbsp;{{l.PLACE}}</h6>
+            </div>
+            <button *ngIf='!istran_id && !isComId' class="btn btn-danger" data-toggle="modal" (click)="myModal.show()" style="font-size: 10px">
+              <i class="fa fa-google-plus"></i>Contact Broker</button>
+              
+              <button *ngIf='istran_id || isComId' class="btn btn-success" (click)="hire(l.ID)" style="font-size: 10px">Hire </button>
+
+            <button class="btn btn-info pull-right" (click)="navigateProfDetail(l.ID)" style="font-size: 10px">
+              <i class="fa fa-address-card"></i>View Profile</button>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Contact Broker</h4>
+          <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form [formGroup]="contactProfessionalData" (ngSubmit)="sendMail()">
+                  <div class="content">
+                    <div class="row">
+                      <div class="col-12 col-lg-12">
+                        <div class="form-group">
+                          <label>Full Name</label>
+                          <input type="text" class="form-control" formControlName="FullName" placeholder="Full Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.FullName.errors }">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-lg-12">
+                        <div class="form-group">
+                          <label>Your Email</label>
+                          <input type="text" class="form-control" formControlName="Email" placeholder="Your Email"
+                            [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-lg-12">
+                        <div class="form-group">
+                          <label>Your Phone</label>
+                          <input type="text" class="form-control" formControlName="Phone" placeholder="Your Phone"
+                            [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-lg-12">
+                        <div class="form-group">
+                          <label>Message Box</label>
+                          <textarea rows="4" cols="80" class="form-control" formControlName="MessageBox" placeholder="Write Your Messsage Here..."
+                            [ngClass]="{ 'is-invalid': submitted && f.MessageBox.errors }"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col text-center">
+                        <button type="submit" class="btn btn-info btn-fill btn-wd btn-round"> Send Mail </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

@@ -1,0 +1,251 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <div *ngIf="isProfessional" class="row">
+        <div class="col-sm-5 col-lg-5">
+          <div class="form-group">
+            <label><h3>Choose Role</h3></label>
+            <ng-select
+              [items]="agentType"
+              bindLabel="name"
+              bindValue="value"
+              placeholder="Select Role"
+              [(ngModel)]="user_role"
+              (change)="onRoleChange()"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5 col-lg-5">
+          <div class="form-group">
+            <label><h3>Choose business</h3></label>
+            <ng-select
+              [items]="list"
+              [(ngModel)]="com_id"
+              bindLabel="TITLE"
+              bindValue="COMPANY_ID"
+              placeholder="Select Business"
+              (change)="onBusinessChange()"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                <img height="15" width="15" [src]="item.avatar" />
+                {{ item.TITLE }}, {{ item.ADDRESS }}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                {{ item.TITLE }}, {{ item.ADDRESS }}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div *ngIf="isBusinessSelected && isSeller" class="row">
+        <div class="ml-auto ">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="editBusiness()"
+          >
+            <i class="fa fa-edit"></i> Edit Data Room
+          </button>
+        </div>
+      </div>
+      <!-- Seller Role -->
+      <div *ngIf="isBusinessSelected" class="row">
+        <div class="container-fluid">
+          <ngb-tabset [justify]="justified">
+            <ngb-tab title="Personal Info">
+              <ng-template ngbTabContent>
+                <app-personal-info [companyID]="com_id"></app-personal-info>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Business Info">
+              <ng-template ngbTabContent>
+                <app-business-info [companyID]="com_id"></app-business-info>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Building Info">
+              <ng-template ngbTabContent>
+                <app-building-info [companyID]="com_id"></app-building-info>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Premises Info">
+              <ng-template ngbTabContent>
+                <app-premises-info [companyID]="com_id"></app-premises-info>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Financial Info">
+              <ng-template ngbTabContent>
+                <app-financial-info [companyID]="com_id"></app-financial-info>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Other Documents">
+              <ng-template ngbTabContent>
+                <app-other-documents [companyID]="com_id"></app-other-documents>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+      <!-- buyer Personal Data -->
+      <div *ngIf="!isBusinessSelected && buyerDataroom" class="row">
+        <div class="container-fluid">
+          <ngb-tabset [justify]="justified">
+            <ngb-tab title="Personal Info">
+              <ng-template ngbTabContent>
+                <div class="col-md-12 col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>Personal Information</h3>
+                    </div>
+                    <div class="card-body">
+                      <div
+                        *ngIf="personalInfoData.length > 0; else noData"
+                        class="bd-example"
+                      >
+                        <dl class="row">
+                          <dt class="col-sm-3">Name</dt>
+                          <dd class="col-sm-9">
+                            {{ personalInfoData[0].NAME }}
+                          </dd>
+
+                          <dt class="col-sm-3">Email</dt>
+                          <dd class="col-sm-9">
+                            {{ personalInfoData[0].EMAIL_ADDRESS }}
+                          </dd>
+
+                          <dt class="col-sm-3 text-truncate">Address</dt>
+                          <dd class="col-sm-9">
+                            {{ personalInfoData[0].ADDRESS }}
+                          </dd>
+
+                          <dt class="col-sm-3 text-truncate">Contact Number</dt>
+                          <dd class="col-sm-9">
+                            {{ personalInfoData[0].CELL_NUMBER }}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div *ngIf="isNoPersonalData">
+                        <img
+                          src="../../../assets/img/norecord.png "
+                          class="img-fluid"
+                          alt="No Data Found"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Documents">
+              <ng-template ngbTabContent>
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Documents Information</h3>
+                  </div>
+                  <div class="card-body">
+                    <div
+                      *ngIf="personalInfoData.length > 0; else noData"
+                      class="bd-example"
+                    >
+                      <dl class="row">
+                        <dt class="col-sm-3">License Report</dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showBuyerLicense()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isBuyerLicense' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isBuyerLicense = !isBuyerLicense"
+              >
+                Hide
+              </button>
+                        </dd>
+
+                        <dt class="col-sm-3">Bank Report</dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showBuyerBank()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isBuyerBank' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isBuyerBank = !isBuyerBank"
+              >
+                Hide
+              </button>
+                        </dd>
+
+                        <dt class="col-sm-3 text-truncate">Financial Report</dt>
+                        <dd class="col-sm-9">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            (click)="showBuyerFinancial()"
+                          >
+                            Click Here To View Document!
+                          </button>
+                          <button *ngIf='isBuyerFinancial' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isBuyerFinancial = !isBuyerFinancial"
+              >
+                Hide
+              </button>
+                        </dd>
+                      </dl>
+                    </div>
+                    <div *ngIf="isBuyerLicense">
+                      <pdf-viewer
+                        src="{{'../assets/img/SocialDocs/' +personalInfoData[0].LICENSE_REPORT}}"
+                        [render-text]="true"
+                        [page]="page"
+                        [show-all]="true"
+                        style="display: block;"
+                      >
+                      </pdf-viewer>
+                    </div>
+                    <div *ngIf="isBuyerBank">
+                      <pdf-viewer
+                        src="{{'../assets/img/SocialDocs/' +personalInfoData[0].BANK_REPORT}}"
+                        [render-text]="true"
+                        [page]="page"
+                        [show-all]="true"
+                        style="display: block;"
+                      >
+                      </pdf-viewer>
+                    </div>
+                    <div *ngIf="isBuyerFinancial">
+                      <pdf-viewer
+                        src="{{'../assets/img/SocialDocs/' + personalInfoData[0].FIN_REPORT}}"
+                        [render-text]="true"
+                        [page]="page"
+                        [show-all]="true"
+                        style="display: block;"
+                      >
+                      </pdf-viewer>
+                    </div>
+
+                    <div *ngIf="isNoPersonalData">
+                      <img
+                        src="../../../assets/img/norecord.png "
+                        class="img-fluid"
+                        alt="No Data Found"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

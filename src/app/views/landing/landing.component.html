@@ -1,0 +1,263 @@
+
+  <app-header
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/brand/goldlogo.png', width: 80, height: 70, alt: 'BizopsAI Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/bizop-logo.png', width: 35, height: 35, alt: 'CoreUI Logo'}"
+  [sidebarToggler]="'lg'" [asideMenuToggler]="'lg'" >
+
+  <ul class="nav navbar-nav d-lg-none d-sm-block d-md-none">
+      <li class="nav-item px-3">       
+          <a class="nav-link" style="cursor:pointer"
+              >
+          <i class="icon-options-vertical"></i></a>         
+      </li>
+  </ul>
+
+  <ul class="nav navbar-nav d-sm-down-none">
+    <li class="nav-item px-3">
+      <a class="nav-link" routerLink="/home/buy" >Buy</a>
+    </li>
+    <li class="nav-item px-3">
+      <a *ngIf='isUser' class="nav-link" routerLink="/seller/sell" >Sell</a>
+      <a *ngIf='!isUser' class="nav-link" routerLink="/seller/login" >Sell</a>
+    </li>
+    <li class="nav-item px-3">
+      <a class="nav-link" routerLink="/home/lease" >Lease</a>
+    </li>    
+    <li class="nav-item px-3" dropdown placement="bottom right">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+          Operate
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">                  
+          <a class="dropdown-item" routerLink="/operate/hire"> Hire a Professional </a>
+          <a class="dropdown-item" routerLink="/operate/product"> Buy a product </a>           
+        </div>
+      </li>
+  </ul> 
+     
+  <ul class="nav navbar-nav ml-auto">
+    <li *ngIf='!isUser' class="nav-item d-md-down-none" >
+      <a  class="nav-link" routerLink="/login" ><i class="icon-login"></i>&nbsp;Login & Sign Up</a>     
+    </li>
+    <li *ngIf='isUser' class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+        <i class="icon-user"></i>&nbsp;{{user_name}}
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown"> 
+        <a class="dropdown-item" routerLink="/home/buyer-profile"><i class="fa fa-user-o"></i> Profile</a>
+        <a class="dropdown-item" routerLink="/tran/notification"><i class="fa fa-bell-o"></i><span class="badge badge-pill badge-danger">5</span> Notifications </a>       
+        <a class="dropdown-item" routerLink="/login"><i class="fa fa-lock"></i> Logout</a>
+      </div>
+    </li>    
+  </ul>
+</app-header>
+
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Bizops AI</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Buy </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sell</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Lease</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Operate</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <!-- Page Content -->
+  
+  <!-- Header with Background Image -->
+ 
+  <header class="business-header" style="margin-top:50px;">  
+    <div class="bg">  </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="display-3 text-center font-weight-normal  text-black mt-4 ">Bizops AI</h1>
+        </div>
+      </div>
+    </div>  
+    <div class="container" >  
+        <div class="card-body">    
+          <div  *ngIf='isMain' class="row justify-content-center">
+            <h4 class="display-3 text-center font-weight-normal text-info mt-4"> What type of transaction you're Looking for </h4>
+          </div> 
+            <div *ngIf='isMain' class="row justify-content-center">
+              <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                <div
+                  class="card"
+                  style="height: 150px;
+                    text-align: center;
+                    box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                  (click)="onRoleChange('buySell')"
+                >
+                  <span style="margin-top: auto;margin-bottom: auto;">Buy/Sell</span>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                <div
+                  class="card"
+                  style="height: 150px;
+                          text-align: center;
+                          box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                  (click)="onRoleChange('lease')"
+                >
+                  <span style="margin-top: auto;margin-bottom: auto;"> Lease </span>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                  <div
+                    class="card"
+                    style="height: 150px;
+                            text-align: center;
+                            box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                    (click)="onRoleChange('Operations')"
+                  >
+                    <span style="margin-top: auto;margin-bottom: auto;"> Operations </span>
+                  </div>
+                </div>
+            </div>
+            <div  *ngIf='isBuySell' class="row justify-content-center">
+                <h2 class="display-3 text-center font-weight-normal text-info mt-4"> Choose you're role for further transaction </h2>
+              </div>
+            <div *ngIf='isBuySell' class="row justify-content-center">
+                <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                    <div
+                      class="card"
+                      style="height: 150px;
+                        text-align: center;
+                        box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                        routerLink="/home/buy" 
+                    >
+                      <span style="margin-top: auto;margin-bottom: auto;">Buyer</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                    <div
+                      class="card"
+                      style="height: 150px;
+                              text-align: center;
+                              box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                              routerLink="/seller/sell"
+                    >
+                      <span style="margin-top: auto;margin-bottom: auto;"> Seller </span>
+                    </div>
+                  </div>              
+               </div> 
+               <div  *ngIf='isLease' class="row justify-content-center">
+                  <h2 class="display-3 text-center font-weight-normal text-info mt-4"> Choose you're role for further transaction </h2>
+                </div>
+               <div *ngIf='isLease' class="row justify-content-center">
+                  <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                      <div
+                        class="card"
+                        style="height: 150px;
+                          text-align: center;
+                          box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                          routerLink="/form/landlord-register"
+                      >
+                        <span style="margin-top: auto;margin-bottom: auto;">Landlord</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                      <div
+                        class="card"
+                        style="height: 150px;
+                                text-align: center;
+                                box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                                routerLink="/form/tenant-register" 
+                      >
+                        <span style="margin-top: auto;margin-bottom: auto;"> Tenant </span>
+                      </div>
+                    </div>              
+               </div>
+               <div  *ngIf='isOperate' class="row justify-content-center">
+                  <h2 class="display-3 text-center font-weight-normal text-info mt-4"> Choose you're role for further transaction </h2>
+                </div>
+                
+               <div *ngIf='isOperate' class="row justify-content-center">
+                  <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                      <div
+                        class="card"
+                        style="height: 150px;
+                          text-align: center;
+                          box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                          routerLink="/professionalregister"
+                      >
+                        <span style="margin-top: auto;margin-bottom: auto;">
+                          <a>Professional</a></span>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3" style="font-size: 20px;margin: 10px;">
+                      <div
+                        class="card"
+                        style="height: 150px;
+                                text-align: center;
+                                box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                               
+                      >
+                        <span style="margin-top: auto;margin-bottom: auto;">                      
+                           <a [routerLink]="['/professionalregister']" [queryParams]="{Type:'PrincipleAgent'}">
+                             Principle Agent </a>
+                          </span>
+                      </div>
+                    </div>              
+               </div>        
+    
+               <div *ngIf='!isMain' class="row ">
+                  <div class="col-lg-1 offset-lg-2 col-md-1" style="font-size: 20px;">
+                      <div
+                        class="card"
+                        style="height: 50px;
+                          text-align: center;
+                          box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                         (click)='back()'
+                      >
+                        <span style="margin-top: auto;margin-bottom: auto;">Back</span>
+                      </div>
+                    </div>
+                    <!-- <div class="col-lg-1 offset-lg-6 col-md-1" style="font-size: 20px;">
+                      <div
+                        class="card"
+                        style="height: 50px;
+                                text-align: center;
+                                box-shadow: 0 1px 9px rgba(15,18,18,.35)"
+                        (click)="onRoleChange('lease')"
+                      >
+                        <span style="margin-top: auto;margin-bottom: auto;"> Next </span>
+                      </div>
+                    </div>               -->
+               </div>
+      </div>
+     
+      <!-- /.row -->  
+    </div>   
+ 
+  </header> 
+
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+    </div>
+  
+  </footer> -->
+
+ 
+
+

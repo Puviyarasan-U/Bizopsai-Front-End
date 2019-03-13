@@ -1,0 +1,37 @@
+<div>
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-12 col-sm-6"     
+      *ngFor="let l of list | paginate: { itemsPerPage: 12, currentPage: p } ">
+      <div class="card" style="height: 480px;">
+          <div class="card-header" style="font-style:italic;font-size:small">
+              Transaction Id : {{l.TRAN_ID}}
+          </div>
+        <span *ngIf="l.IMG_NAME==null">
+          <img class="card-img-top" src="{{'../assets/img/null.jpg'}}" height="200px" alt="Card image cap">
+        </span>
+        <span *ngIf="l.IMG_NAME!=null">
+          <img class="card-img-top" src="{{'../assets/img/' + l.IMG_NAME}}" height="200px" alt="Card image cap">
+        </span>
+        <div class="card-body">
+          <h3 class="card-title" style="height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold">{{l.COMPANY_NAME}}</h3>
+          <p class="card-text" style="height: 73px;overflow-y: hidden;text-align: justify;font-size: 13px;">{{l.LONG_DESC}}</p>
+          <hr>
+          <div class="row">
+            <h6 style="margin-left: 10px;"> {{l.RENT | currency}} </h6>
+            <h6 style="margin-left: auto; margin-right: 10px;">
+              <i class="icon-location-pin" style="color:red"></i>
+              &nbsp;{{l.STATE}}</h6>
+          </div>
+          <button class="btn btn-primary" style="font-size: 10px" (click)="detail(l.BUS_ENT_ID)">View Documents</button>
+          <button class="btn btn-danger pull-right" style="font-size: 10px" (click)="remove(l.BUS_ENT_ID)">Remove</button>
+
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+  <div *ngIf="isList" class="row justify-content-center" 
+        style="margin:1rem;font-weight:bold;">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

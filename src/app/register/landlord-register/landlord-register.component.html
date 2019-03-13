@@ -1,0 +1,69 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+        <h4 class="title text-center" style="font-weight: bold">
+            Landlord Registration
+        </h4>
+    </div>
+    <div class="card-body">
+        <form *ngIf='isFirstTime' novalidate [formGroup]="checkoutForm" >
+            <div class="container-fluid">
+                <ngb-tabset #tab="ngbTabset" [justify]="justified">
+                  <ngb-tab title="Personal Info" id='0'>
+                    <ng-template ngbTabContent>
+                      <app-personal-form  [personal]="checkoutForm.controls.personal" (talk)="talkBack($event)"></app-personal-form>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab title="Business Entity" id='1' (click)="change()">
+                    <ng-template ngbTabContent>
+                      <app-business-entity-form   [business]="checkoutForm.controls.business" (talk)="talkBack($event)"></app-business-entity-form>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab title="Building Info" id='2'>
+                    <ng-template ngbTabContent>
+                      <app-building-info-form  [building]="checkoutForm.controls.building" (talk)="talkBack($event)"></app-building-info-form>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab title="Premises Info" id='3'>
+                    <ng-template ngbTabContent>
+                      <app-premises-info  [premises]="checkoutForm.controls.premises" (talk)="talkBack($event)"></app-premises-info>
+                    </ng-template>
+                  </ngb-tab>                  
+                  <ngb-tab title="Terms" id='4' >
+                    <ng-template ngbTabContent>
+                      <app-lease-terms [terms]="checkoutForm.controls.terms" (talk)="talkBack($event)"> </app-lease-terms>
+                    </ng-template>
+                  </ngb-tab> 
+                </ngb-tabset>
+              </div>              
+        </form> 
+        <div *ngIf='!isFirstTime'>
+          <div class="row">
+              <div class="ml-auto ">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="isFirstTime=!isFirstTime"
+                  >
+                    <i class="fa fa-edit"></i> Create New 
+                  </button>
+                </div>
+          </div>
+          <div class="row">         
+            <div *ngFor='let l of userLeaseList' class="col-lg-3 col-md-3">
+                <div
+                  class="card"
+                  style="height: 150px;
+                    text-align: center;
+                    box-shadow: 0 1px 9px rgba(15,18,18,.35)"   
+                    (click)='loadLeaseData(l.BIZ_ID)'                
+                >
+                  <span style="margin-top: auto;margin-bottom: auto;"><h3> {{l.COMPANY_NAME}} </h3>  </span>
+                  <p> fill the remaining fields </p>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

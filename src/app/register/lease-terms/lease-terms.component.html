@@ -1,0 +1,57 @@
+<form [formGroup]="terms" (ngSubmit)="saveLeaseTerms()">
+    <div>
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5">
+                      <div class="form-group">
+                        <label> Commercial Rent </label>
+                        <input
+                          type="text"
+                          formControlName="CommercialRent"
+                          class="form-control"
+                          placeholder="Commercial Rent"
+                        />
+                        <div
+                          *ngIf="submitted && f.CommercialRent.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.CommercialRent.errors.required">
+                            Commercial Rent is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                      <div class="form-group">
+                        <label> Duration Of Lease </label>
+                        <input
+                          type="text"
+                          formControlName="Duration"
+                          class="form-control"
+                          placeholder="Duration Of Lease"
+                        />
+                        <div
+                          *ngIf="submitted && f.Duration.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.Duration.errors.required">
+                            Duration Of Lease is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+              <div>
+                <button type="submit" class="btn btn-block btn-success">Save & Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </form>
+  

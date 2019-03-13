@@ -1,0 +1,234 @@
+<form [formGroup]="personal" (ngSubmit)="savePersonalInfo()">
+  <div>
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    formControlName="Name"
+                    class="form-control"
+                    placeholder="Name"                   
+                    [ngClass]="{ 'is-invalid': submitted && f.Name.errors }"
+                  />
+                  <div
+                    *ngIf="submitted && f.Name.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Name.errors.required">Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <div class="form-group">
+                  <label>Home address</label>
+                  <input
+                    type="text"
+                    formControlName="HomeAddress"
+                    class="form-control"
+                    placeholder="Home Address"                  
+                    [ngClass]="{
+                      'is-invalid': submitted && f.HomeAddress.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.HomeAddress.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.HomeAddress.errors.required">
+                      Home address is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>           
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    formControlName="Email"
+                    class="form-control"
+                    placeholder="Email"                   
+                    [ngClass]="{
+                      'is-invalid': submitted && f.Email.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.Email.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Email.errors.required">
+                      Email is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <div class="form-group">
+                  <label>Fax Number</label>
+                  <input
+                    type="number"
+                    formControlName="FaxNumber"
+                    class="form-control"
+                    placeholder="Fax Number"                   
+                    [ngClass]="{
+                      'is-invalid': submitted && f.FaxNumber.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.FaxNumber.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.FaxNumber.errors.required">
+                      Fax Number is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+                <div class="form-group">
+                  <label>Cell Phone </label>
+                  <input
+                    type="number"
+                    formControlName="CellPhone"
+                    placeholder="Cell Phone Number"
+                    class="form-control"                   
+                    [ngClass]="{
+                      'is-invalid': submitted && f.CellPhone.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.CellPhone.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.CellPhone.errors.required">
+                      Cell Phone Number is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                <div class="form-group">
+                  <label>Home Phone </label>
+                  <input
+                    type="number"
+                    formControlName="HomePhone"
+                    class="form-control"
+                    placeholder="Home Phone Number"                   
+                    [ngClass]="{
+                      'is-invalid': submitted && f.HomePhone.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.HomePhone.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.HomePhone.errors.required">
+                      Home Phone Number is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label>DOB</label>
+                        <input type="date" placeholder="DOB" 
+                        formControlName="DOB" class="form-control" 
+                         [ngClass]="{ 'is-invalid': submitted && f.DOB.errors }"
+                        />
+                        <div *ngIf="submitted && f.DOB.errors" class="invalid-feedback">
+                            <div *ngIf="f.DOB.errors.required">Date of birth is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                    <div class="form-group">
+                        <label>Place Of Birth</label>
+                        <input type="text" placeholder="Place Of Birth" 
+                        formControlName="BirthPlace" class="form-control"  
+                        [ngClass]="{ 'is-invalid': submitted && f.BirthPlace.errors }"
+                        />
+                        <div *ngIf="submitted && f.BirthPlace.errors" class="invalid-feedback">
+                            <div *ngIf="f.BirthPlace.errors.required">Place is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <label>Driver License</label>
+                  <input
+                    ng2FileSelect
+                    [uploader]="SocialUploader"
+                    class="form-control"                  
+                    type="file"                  
+                  />
+  
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-default"
+                   
+                  >
+                    clear file
+                  </button>
+                </div>
+  
+                <div class="col-md-5 offset-md-1 col-lg-5 offset-lg-1">
+                  <label>Social Security Number</label>
+                  <input
+                    ng2FileSelect
+                    [uploader]="LicenseUploader"
+                    class="form-control"                   
+                    type="file"                  
+                  />  
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-default"
+                   
+                  >
+                    clear file
+                  </button>
+                </div>
+              </div>
+  
+              <!-- <div class="row">
+                <div class="col-md-5 col-lg-5">
+                  <label>Certificates</label>
+                  <input
+                    ng2FileSelect
+                    [uploader]="certificateUploader"
+                    class="form-control"
+                    [(ngModel)]="certPDF"
+                    type="file"
+                    id="certificateRep"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-default"
+                    (click)="clearCertificateFile()"
+                  >
+                    clear file
+                  </button>
+                </div> 
+              </div>              -->
+           
+            <div>
+              <button type="submit" class="btn btn-block btn-success">Save & Continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</form>

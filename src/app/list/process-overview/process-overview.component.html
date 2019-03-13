@@ -1,0 +1,197 @@
+<div class="card">
+  <div class="card-header">
+    <div class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="sellerList"
+          [(ngModel)]="companyId"
+          bindLabel="TITLE"
+          bindValue="COMPANY_ID"
+          placeholder="Select Business"
+          (change)="changeCompany()"
+        >
+        </ng-select>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <ul class="list-unstyled multi-steps">
+    <li
+      *ngFor="let l of processList"
+      [ngClass]="{ 'is-active': l.STATUS == 0 }"
+      (click)="processAction(l.STEPS)"
+    >
+      {{ l.STEPS }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf='processList.length > 0' class="card">
+  <div class="card-body">
+    <div *ngIf="selectAction == 'Search Business'">
+      <h3>Click The Below Button To Start The Process</h3>
+      <button
+        type="button"
+        style="margin-left:5px"
+        class="btn btn-success"
+        (click)="acceptList()"
+      >
+        Start
+      </button>
+    </div>
+    <div *ngIf="selectAction == 'Agreements'">
+      <div class="row justify-content-center">
+        <h3>sign and upload agreements required by a Seller</h3>
+      </div>
+      <div *ngIf="!isSellerNDA" class="row">
+       <h5> Contact Seller For NDA </h5>
+      </div>
+      <div *ngIf="isSellerNDA" class="row">
+          <div class="col-md-5 col-lg-5">           
+               <button type="button"
+                    class="btn btn-sm btn-info "
+                    (click)=" viewNDA = !viewNDA"
+                  >
+                 <span *ngIf="!viewNDA"> View Seller NDA  </span>
+                 <span *ngIf="viewNDA"> Close NDA </span>
+                </button>
+                  <div *ngIf="viewNDA">
+                      <pdf-viewer
+                        src="{{ '../assets/img/SocialDocs/' + seller_NDA[0].NDA_IMG }}"
+                        [render-text]="true"
+                        [page]="page"
+                        [show-all]="true"
+                        style="display: block;"
+                      >
+                      </pdf-viewer>
+                    </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-lg-5">
+          <label>Upload NDA </label>
+          <input
+            ng2FileSelect
+            [uploader]="agreementUploader"
+            class="form-control"
+            [(ngModel)]="DOC_Agreement"
+            type="file"
+            #fileInput
+          />
+        </div>
+      </div>
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-sm btn-danger"
+          (click)="clearPDF()"
+        >
+          clear file
+        </button>
+        <button
+          type="button"
+          style="margin-left:5px"
+          class="btn btn-sm btn-success"
+          (click)="uploadNDA()"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="selectAction == 'Due Diligence'">
+      <div class="row justify-content-center">
+        <h3>To get access to Data Room, You must upload proof of funds</h3>
+      </div>
+      <div class="col-md-5 col-lg-5">
+        <label>Upload Proof Of Funds </label>
+        <input
+          ng2FileSelect
+          [uploader]="POFUploader"
+          class="form-control"
+          [(ngModel)]="DOC_POF"
+          type="file"
+          #fileInput
+        />
+        <div class="row">
+          <button
+            type="button"
+            class="btn btn-sm btn-danger"
+            (click)="clearPDF()"
+          >
+            clear file
+          </button>
+          <button
+            type="button"
+            style="margin-left:5px"
+            class="btn btn-sm btn-success"
+            (click)="uploadPOF()"
+          >
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectAction == 'Site Inspection'">
+      <h3>Request Seller For The Site Inspection</h3>
+      <button
+        type="button"
+        style="margin-left:5px"
+        class="btn btn-sm btn-success"
+        (click)="acceptInspection()"
+      >
+        Accept
+      </button>
+    </div>
+
+    <div *ngIf="selectAction == 'Offer'">
+      <h3>Enter Your Offer Price</h3>
+      <div class="row">
+        <div class="col-md-4 col-lg-4">
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter Amount"
+              [(ngModel)]="offerPrice"
+            />
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        style="margin-left:5px"
+        class="btn btn-sm btn-success"
+        (click)="acceptOffer()"
+      >
+        Accept
+      </button>
+    </div>
+    <div *ngIf="selectAction == 'Closing'">
+      <h3>Time to Close Your Transaction</h3>
+      <button
+        type="button"
+        style="margin-left:5px"
+        class="btn btn-sm btn-success"
+        (click)="acceptClosing()"
+      >
+        Accept
+      </button>
+    </div>
+    <div *ngIf="selectAction == 'ESCROW'">
+      <h3>Escrow</h3>
+      <button
+        type="button"
+        style="margin-left:5px"
+        class="btn btn-sm btn-success"
+        (click)="acceptEscrow()"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>

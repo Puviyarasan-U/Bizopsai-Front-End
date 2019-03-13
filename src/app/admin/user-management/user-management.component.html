@@ -1,0 +1,160 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Welcome {{user_name}}</h4>
+  </div>
+  <div class="card-body">
+    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">  
+          <div class="row">
+          <div class=" col-lg-5 col-md-5  ">
+            <div class="form-group">
+              <label style="font-weight: bold">User Type</label>
+              <ng-select [items]="usersTypes" placeholder=" User Type" [(ngModel)]="currentUserType"
+                (change)="changeUserType($event)">
+              </ng-select>
+            </div>
+          </div>
+          <div class=" col-lg-5 col-md-5  ">
+          <div id="DataTables_Table_0_filter" class="dataTables_filter">
+              <label style="font-weight: bold">Search</label>
+              <input type="search" class="form-control form-control-md" placeholder="search by username" [(ngModel)]="user_request" (input)="onSearchChange($event.target.value)"
+                aria-controls="DataTables_Table_0">           
+          </div>
+          </div>
+          </div>
+        <!-- </div>   -->
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
+            style="border-collapse: collapse !important">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending"
+                  style="width: 233px;">USER NAME</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                  style="width: 200px;">USER EMAIL</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending"
+                  style="width: 87px;">USER_PASSWORD</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending"
+                  style="width: 87px;">USER CREATED DATE</th>
+                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending"
+                  style="width: 207px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let l of allUsers | paginate: { itemsPerPage: 8, currentPage: p }">
+              <tr role="row" class="odd">
+                <td class="sorting_1">{{l.USER_FIRSTNAME}}</td>
+                <td>{{l.USER_EMAIL}}</td>
+                <td>{{l.USER_PASSWORD}}</td>
+                <td>{{l.CREATED_DATETIME}}</td>
+                <td>
+                  <a class="btn btn-success" (click)="publishId(l.COMPANY_ID)" data-toggle="modal" (click)="publishModal.show()">
+                    <i class="fa fa-share-square tooltip-test"></i>
+                  </a>
+                  <a class="btn btn-info" (click)="editId(l.COMPANY_ID)" data-toggle="modal" (click)="editModal.show()">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a class="btn btn-danger" (click)="hideId(l.COMPANY_ID)" data-toggle="modal" (click)="hideModal.show()">
+                    <i class="fa fa-trash-o"></i>
+                  </a>
+                  <a class="btn btn-info" (click)="notifyId(l.ID)" data-toggle="modal" (click)="notifyModal.show()">
+                      <i class="fa fa-paper-plane"></i>                     
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row justify-content-center" style="margin:1rem;font-weight:bold;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure you want to preview this product ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="viewModal.hide()">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="view(id_view)">Yes</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure you want to edit this product ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="editModal.hide()">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="edit(id_edit)">Yes</button>
+      </div>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div bsModal #hideModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure you want to delete this product ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="hideModal.hide()">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="hide(id_hide)">Yes</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div bsModal #publishModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure you want to publish this product ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="publishModal.hide()">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="publish(id_publish)">Yes</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div bsModal #notifyModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          Are you sure you want to view details this user ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="editModal.hide()">No</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="notify(notificationId)">Yes</button>
+        </div>
+  
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>

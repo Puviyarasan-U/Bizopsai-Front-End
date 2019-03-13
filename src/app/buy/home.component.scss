@@ -1,0 +1,58 @@
+label{
+    
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}
+ngui-map {
+    height: 400px;
+  }
+.dropDown{
+    width: 100px;
+    margin-left: 20px;
+    background-color: white;
+    color:#224453;
+    font-weight: bolder;
+    border: 1px solid #E3E3E3;
+    // font-size: medium;
+    text-align: right;
+    height: 35px;
+}
+
+p.link {
+    // color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .ng-select.colour::placeholder{
+      color: black;
+  }
+
+  
+// .batch{
+//     position: absolute;
+//     left: -8px;
+//     top: 0;
+//     background-color: #8a584b;
+//     color: #fff;
+//     font-size: 13px;
+//     font-weight: 500;
+//     padding: 5px 9px 4px;
+//     max-width: 50%;
+//     text-transform: uppercase;
+//     border-color: #8a584b;
+
+//         &::after{
+//                 position: absolute;
+//                 bottom: -9px;
+//                 content: "";
+//                 width: 0;
+//                 height: 0;
+//                 border-style: solid;
+//                 border-color: inherit;
+//                 left: 0;
+//                 border-width: 9px 0 0 9px;
+//         }
+// }

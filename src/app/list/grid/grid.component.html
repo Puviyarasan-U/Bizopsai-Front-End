@@ -1,0 +1,148 @@
+<div>
+    <div *ngIf="user_name" class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Welcome {{user_name}} </h4>         
+        </div>
+
+        <div class="card-body" *ngIf="isList">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th> Title</th>
+                <th> Category </th>              
+                <th> State </th>
+                <th> County </th>
+                <th> Price </th>  
+                <th> Status </th>           
+                <th> Action </th>
+              </thead>
+              <tbody *ngFor="let l of list | paginate: { itemsPerPage: 8, currentPage: p } ">
+                <tr>
+                  <td> {{l.TITLE}} </td>
+                  <td> {{l.CATEGORY}} </td>                  
+                  <td> {{l.STATE}} </td>
+                  <td> {{l.COUNTY}} </td>                 
+                  <td> {{l.PRICE}} </td>
+                  <td>
+                    <span *ngIf="l.PUBLISHED==0"> Pending </span>
+                    <span *ngIf="l.PUBLISHED==1"> Published </span>
+                  </td>
+                  <td>
+                     
+                      
+                        <span  (click)=view(l.COMPANY_ID) data-toggle="modal" (click)="viewModal.show()">
+                          <i class="fa fa-eye tooltip-test" title="Preview"  style='font-size:20px;'></i>
+                        </span> 
+                         &nbsp;
+                        <span (click)="editId(l.COMPANY_ID)" data-toggle="modal" (click)="editModal.show()">
+                          <i class="fa fa-edit tooltip-test" title="Edit" style='font-size:20px;color:blue'></i>
+                        </span>
+                         &nbsp;
+
+                        <span (click)="hideId(l.COMPANY_ID)" data-toggle="modal" (click)="hideModal.show()" >
+                          <i class="fa fa-times tooltip-test" title="Delete" style='font-size:20px;color:red'></i>
+                        </span>
+                        &nbsp;
+                        
+                        <span (click)="publishId(l.COMPANY_ID)" data-toggle="modal" (click)="publishModal.show()" >
+                          <i class="fa fa-share-square tooltip-test" title="Publish" style='font-size:20px;color:green'></i>
+                        </span>
+                  </td>
+                </tr>               
+                
+              </tbody>
+            </table>
+            <div class="row justify-content-center" style="margin:1rem;font-weight:bold;"> <pagination-controls (pageChange)="p = $event"></pagination-controls> </div>
+          </div>
+        </div>
+       
+        <div *ngIf="!isList">
+            <div class="card-body">
+                <img  src="../assets/img/empty.jpg " height="200px" alt="Card image cap">
+            </div>
+       </div>
+      </div>
+      <div *ngIf="!user_name" class="card">
+        <div class="card-body">
+            <img  src="../assets/img/empty.jpg " height="200px" alt="Card image cap">
+        </div>
+      </div>
+ </div>
+
+ 
+<div class="modal fade bd-example-modal-sm" id=alertView
+     tabindex="-1" role="dialog" style="margin: 12.75rem auto;" 
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-body">
+            Are you sure you want to preview this product ? 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" >No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="view(id_view)" >Yes</button>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            Are you sure you want to preview this product ? 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="viewModal.hide()">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="view(id_view)" >Yes</button>
+          </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            Are you sure you want to edit this product ? 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="editModal.hide()">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="edit(id_edit)" >Yes</button>
+          </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #hideModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            Are you sure you want to delete this product ? 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="hideModal.hide()">No</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="hide(id_hide)" >Yes</button>
+          </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #publishModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Are you sure you want to publish this product ? 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="publishModal.hide()">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="publish(id_publish)" >Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

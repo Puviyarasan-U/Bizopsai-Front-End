@@ -1,0 +1,88 @@
+
+  <div class="row">    
+   <div class="col-lg-3 col-md-4 col-12 col-sm-6" *ngFor="let l of buyerDetail  ">
+      <div class="card" style="height: 450px;width: 800px">
+           <!-- <span *ngIf="l.IMG_NAME==null">
+               <img class="card-img-top" src="{{'../assets/img/null.jpg'}}" height="200px" alt="Card image cap">
+           </span>
+           <span *ngIf="l.IMG_NAME!=null">           
+              <img class="card-img-top" src="{{'../assets/img/' + l.IMG_NAME}}" height="200px" alt="Card image cap">
+           </span>  -->
+       <div class="card-body">
+        <div class="row">
+          <h3 class="card-title " style="margin-left:10px;height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold" >Name :  {{l.NAME}}</h3>
+         <h3 class="card-text pull-right" style="margin-left: auto; margin-right: 10px;height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold">Email :  {{l.EMAIL_ADDRESS}}</h3>
+          </div> 
+        
+         <div class="row" >
+              <h6 style="margin-left: 10px;font-weight: bold">Contact : {{l.CELL_NUMBER}} </h6>
+              <h6 style="margin-left: auto; margin-right: 10px;font-weight: bold">Address :
+              <i  class="icon-location-pin" style="color:red"></i>
+                  &nbsp;{{l.HOME_ADDRESS}}</h6>                
+         </div>
+         <div class="row" style="margin-top: 20px">
+            <div class="col-sm-10 col-lg-10">
+                <div class="row">
+           <label style="margin-left: 20px;font-weight: bold">Bank Report  </label> 
+                    
+            <button type="button" class="btn btn-sm btn-info" style="margin-left: 45px;width: 100px" (click)="bankReport()"> Show </button>
+            <button type="button" class="btn btn-sm btn-danger" style="margin-left: 50px;width: 100px" (click)="hidebankReport()"> Hide </button>
+            </div>
+            <div *ngIf="showbankPDF"> 
+                <pdf-viewer src="{{'../assets/img/documents/'+ l.BANK_REPORT}}"                        
+                [render-text]="true"
+                [page]="page" 
+                [show-all]="true"
+                style="display: block;">
+                </pdf-viewer>
+              </div>
+            </div>             
+            </div>              
+              <div class="row" style="margin-top: 20px">
+                  <div class="col-sm-10 col-lg-10">
+                      <div class="row">   
+                <label style="margin-left: 20px;font-weight: bold">License Report </label>
+                      
+                    <button type="button" class="btn btn-sm btn-info" style="margin-left: 30px;width: 100px" (click)="licenseReport()">Show </button>              
+                    <button type="button" class="btn btn-sm btn-danger" style="margin-left: 50px;width: 100px" (click)="hidelicenseReport()"> Hide </button>
+                    </div>             
+              <div *ngIf="showlicensePDF"> 
+                  <pdf-viewer src="{{'../assets/img/documents/'+ l.LICENSE_REPORT}}"                        
+                  [render-text]="true"
+                  [page]="page" 
+                  [show-all]="true"
+                  style="display: block;">
+                  </pdf-viewer>
+                </div>
+                </div>
+          </div>
+          <div class="row" style="margin-top: 20px">
+              <div class="col-sm-10 col-lg-10">
+                  <div class="row">  
+              <label style="margin-left: 20px;font-weight: bold">Financial  Report  </label> 
+                    
+                              
+                  <button type="button" class="btn btn-sm btn-info" style="margin-left: 20px;width: 100px" (click)="finReport()"> Show</button> 
+                  <button type="button" class="btn btn-sm btn-danger" style="margin-left: 50px;width: 100px" (click)="hideFinReport()">Hide</button>                           
+                  </div>  
+             
+              <div *ngIf="showfinPDF"> 
+                  <pdf-viewer src="{{'../assets/img/documents/'+ l.FIN_REPORT}}"                        
+                  [render-text]="true"
+                  [page]="page" 
+                  [show-all]="true"
+                  style="display: block;">
+                  </pdf-viewer>
+                </div>
+                </div>
+          </div>
+          <br>
+          <div class="button-container">
+          
+            <button type="button"  class="btn btn-danger pull-right" (click)="buyerEdit(l.NAME)" >
+              <i class="fa fa-google-plus-g"></i> Edit Profile </button>
+          </div>
+          </div> 
+        </div>  
+     </div>
+  </div>

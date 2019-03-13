@@ -1,0 +1,130 @@
+<div class="col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Other Documents</h3>
+      </div>
+      <div  class="card-body">
+        <div *ngIf='otherDocumentMstr.length>0;' class="bd-example">
+          <dl class="row">
+              <dt class="col-sm-3">Liabilities Documents</dt>
+              <dd class="col-sm-9">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="showLiability()"
+                >
+                  Click Here To View Document!
+                </button>
+                <button *ngIf='isShowliability' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isShowliability = !isShowliability"
+              >
+                Hide
+              </button>
+              </dd>
+
+              <dt class="col-sm-3">Retirement and Benefits Plans</dt>
+              <dd class="col-sm-9">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="showRetirement()"
+                >
+                  Click Here To View Document!
+                </button>
+                <button *ngIf='isShowRetirement' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isShowRetirement = !isShowRetirement"
+              >
+                Hide
+              </button>
+              </dd>
+
+              <dt class="col-sm-3 text-truncate"> Key contract </dt>
+              <dd class="col-sm-9">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="showContract()"
+                >
+                  Click Here To View Document!
+                </button>
+                <button *ngIf='isShowContract' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isShowContract = !isShowContract"
+              >
+                Hide
+              </button>
+              </dd>
+              <!-- <dt class="col-sm-3 text-truncate"> Key contract </dt>
+              <dd class="col-sm-9">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="showContract()"
+                >
+                  Click Here To View Document!
+                </button>
+              </dd> -->
+              <dt class="col-sm-3 text-truncate"> Compliance Documents </dt>
+              <dd class="col-sm-9">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="showCompliance()"
+                >
+                  Click Here To View Document!
+                </button>
+                <button *ngIf='isShowCompliance' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="isShowCompliance = !isShowCompliance"
+              >
+                Hide
+              </button>
+              </dd>
+          </dl>
+        </div>
+        <div *ngIf="isShowliability">
+            <pdf-viewer
+              src="{{'../assets/img/SocialDocs/' + personalInfoData[0].LIABILITY_REPORT}}"
+              [render-text]="true"
+              [page]="page"
+              [show-all]="true"
+              style="display: block;"
+            >
+            </pdf-viewer>
+          </div>
+          <div *ngIf="isShowRetirement">
+              <pdf-viewer
+                src="{{'../assets/img/SocialDocs/' +personalInfoData[0].RETIREMENT_REPORT}}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+            <div *ngIf="isShowContract">
+                <pdf-viewer
+                  src="{{'../assets/img/SocialDocs/' +personalInfoData[0].CONTRACT_REPORT}}"
+                  [render-text]="true"
+                  [page]="page"
+                  [show-all]="true"
+                  style="display: block;"
+                >
+                </pdf-viewer>
+              </div>
+              <div *ngIf="isShowCompliance">
+                  <pdf-viewer
+                    src="{{'../assets/img/SocialDocs/' +personalInfoData[0].COMPLIANCE_REPORT}}"
+                    [render-text]="true"
+                    [page]="page"
+                    [show-all]="true"
+                    style="display: block;"
+                  >
+                  </pdf-viewer>
+                </div>
+        <ng-template #noData>        
+          <img src="../../../assets/img/norecord.png "  class="img-fluid"
+           alt="No Data Found">
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  

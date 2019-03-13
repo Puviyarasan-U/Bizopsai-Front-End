@@ -1,0 +1,21 @@
+.fa {
+  padding: 10px;
+  font-size: 20px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+li{
+  color: #2c2c2c;
+  list-style: none;
+ 
+  color: rgb(7, 7, 7);
+}
+footer ul {
+  margin: unset;   
+  
+}
+footer ul li {
+  margin: unset;    
+}

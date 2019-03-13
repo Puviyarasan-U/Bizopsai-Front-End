@@ -1,0 +1,53 @@
+<div class="col-md-12 col-lg-12">
+  <div class="card">
+    <div class="card-header">
+      <h3>Personal Information</h3>
+    </div>
+    <div  class="card-body">
+      <div *ngIf='personalInfoData.length>0;' class="bd-example">
+        <dl class="row">
+          <dt class="col-sm-3">Name</dt>
+          <dd class="col-sm-9">{{personalInfoData[0].NAME }}</dd>
+
+          <dt class="col-sm-3">Email</dt>
+          <dd class="col-sm-9">{{personalInfoData[0].EMAIL_ADDRESS }}</dd>
+
+          <dt class="col-sm-3 text-truncate">Address</dt>
+          <dd class="col-sm-9">{{personalInfoData[0].ADDRESS }}</dd>
+
+          <dt class="col-sm-3 text-truncate">Contact Number</dt>
+          <dd class="col-sm-9">{{personalInfoData[0].CELL_NUMBER}}</dd>
+
+          <dt class="col-sm-3">License Report</dt>         
+          <dd class="col-sm-9">
+              <button type="button"  
+                   class="btn btn-primary" 
+                   (click)="showPersonalDoc()"
+              >             
+              Click Here To View Document!
+              </button>
+              <button *ngIf='showDoc' type="button" class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                (click)="showDoc = !showDoc"
+              >
+                Hide
+              </button>
+          </dd>
+        </dl>
+      </div>
+      <div *ngIf="showDoc">
+          <pdf-viewer
+            src="{{ '../assets/img/SocialDocs/' + DOC_MSTR[0].LICENSE_IMG }}"
+            [render-text]="true"
+            [page]="page"
+            [show-all]="true"
+            style="display: block;"
+          >
+          </pdf-viewer>
+      </div>
+      <div *ngIf='isNoPersonalData'>      
+        <img src="../../../assets/img/norecord.png "  class="img-fluid"
+         alt="No Data Found">
+      </div>
+    </div>
+  </div>
+</div>

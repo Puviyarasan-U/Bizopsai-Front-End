@@ -1,0 +1,128 @@
+<div class="col-md-12">   
+  <div class="card">
+    <div class="card-header">
+      <h4 *ngIf='!isExisting' class="card-title">Create Checklist</h4>
+      <h4 *ngIf='isExisting' class="card-title">Add Checklist to {{tranId}}</h4>
+    </div>   
+    <div class="card-body">       
+
+         <div class="card">
+           <div class="card-header"> 
+              <div class="row">
+                  <div class="col-sm-6 col-lg-4 offset-lg-2" >
+                     <div class="form-group">                                                            
+                         <label>State</label>
+                             <ng-select [items]="stateList"
+                                 [(ngModel)]="currentState"  
+                                 bindLabel="state" bindValue="state" 
+                                 placeholder="Select State"                           
+                                  (change)="changeState($event)"
+                                  >
+                             </ng-select>                                                                        
+                        </div>
+                   </div>
+                     <div class="col-sm-6 col-lg-4">
+                         <div class="form-group"> 
+                             <label>City</label>                                                               
+                             <ng-select [items]="citiesList"  
+                             [(ngModel)]="currentCity"
+                             bindLabel="city"  bindValue="city"  placeholder="Select City"
+                               >
+                             </ng-select>                                                              
+                         </div>                                                            
+                         </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-sm-6 col-lg-4 offset-lg-2">
+                            
+                           <div class="form-group" >
+                            <label>Category</label>                           
+                               <ng-select [items]="baseCategoryList"
+                                  bindLabel="cname"
+                                  bindValue="cname"
+                                  [(ngModel)]="currentCategory"     
+                                  placeholder="Category"                           
+                                  (change)="changeCategory($event)" >
+                               </ng-select>
+                           
+                         </div>
+                     </div> 
+                     <div class="col-sm-6 col-lg-4">                               
+                           <div class="form-group" >
+                              <label>Sub Category</label>
+                              <ng-select [items]="subcategoryList"
+                                 bindLabel="scname"
+                                  bindValue="scname"  
+                                  [(ngModel)]="currentSubCategory"                                                  
+                                  placeholder="Sub Category"                           
+                                  >
+                              </ng-select>                      
+                        </div>
+                      </div>  
+               </div>
+               <div class="row">
+                <h4 class="card-title"> Checklist Items </h4>
+                <div class="ml-auto">
+                    <button *ngIf='!isExisting'  type="button" class="btn btn-primary "
+                        data-toggle="modal" (click)="addLine()">
+                    <i class="fa fa-plus"></i> Add Line </button>
+                    <a data-toggle="modal" (click)="myModal.show()" #showModal ></a>
+                     <!-- <button   type="button" class="btn btn-primary "
+                             >
+                      </button> -->
+                </div>   
+             </div>             
+           </div>
+           <div *ngIf='isList' class="card-body"> 
+              <ul class="list-group" >
+                  <li class="list-group-item" *ngFor="let l of CheckList"> {{l}} </li> 
+               </ul>
+           </div>
+           <div *ngIf='isExisting' class="card-body">
+            <ul class="list-group" >
+              <li class="list-group-item" *ngFor="let l of CheckList"> {{l.INSTRUCTION}} </li> 
+           </ul>
+           </div>
+           <div class="card-footer">
+              <div class="row">
+                <div>
+                  <label>Document </label>
+                    <input   ng2FileSelect [uploader]="checklistUploader" class="form-control"  
+                                 type="file" id="pdfFile">                        
+                    <button type="button" class="btn btn-sm btn-default" (click)="clearPDF()">clear file</button>
+                </div>                     
+              </div>
+                <button type="button" class="btn btn-success pull-right" (click)="createChecklist()">Create</button>
+           </div>
+         </div>      
+     
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Line</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close" #close>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">         
+            <div class="form-group">
+                <label> CheckList </label>                     
+                    <textarea rows="4" cols="80" class="form-control" [(ngModel)]="line"
+                    placeholder="Write Your Instruction Here..."> </textarea> 
+            </div> 
+      </div> 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+        <button type="submit" (click)='add()' class="btn btn-info " > Add  </button>
+      </div>              
+       </div>
+   </div>
+</div>
+
+

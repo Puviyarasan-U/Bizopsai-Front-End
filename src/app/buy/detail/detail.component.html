@@ -1,0 +1,204 @@
+<div *ngIf="list" class="col-md-12 col-lg-12">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{list.TITLE}}</h3>
+        </div>
+        <div class="card-body">
+          <div class="bd-example">
+            <dl class="row">
+              <dt class="col-sm-3">Asking Price</dt>
+              <dd class="col-sm-9">{{list.PRICE | currency}}</dd>
+
+              <dt class="col-sm-3">Cash Flow</dt>
+              <dd class="col-sm-9">{{list.CASH_FLOW | currency}}</dd>
+
+              <dt class="col-sm-3 text-truncate">Revenue</dt>
+              <dd class="col-sm-9">{{list.REVENUE | currency}}</dd>
+
+              <dt class="col-sm-3 text-truncate">State</dt>
+              <dd class="col-sm-9">{{list.STATE}}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-9 col-lg-9">
+      <div class="card">
+      <div class="row">
+        <div class="col-md-6 col-lg-6 text-justify">
+          <div class="card-body">
+          <div>
+            <ngb-carousel *ngIf='img'>
+              <ng-template ngbSlide *ngFor="let i of sec_Images">
+                <img src="{{'../assets/img/' + i.IMG_NAME }}" class="card-img-top" style="height:350px" alt="Random first slide">
+              </ng-template>
+            </ngb-carousel>
+            <span *ngIf='!img'>
+              <img src="{{'../assets/img/' + list.IMG_NAME}}" class="card-img-top" height="200px" style="height:350px;"
+                alt="Card image cap">
+            </span>
+          </div>
+          <!-- <h4 class="card-header card-header-info">Business Details</h4> -->
+          <!-- <div class="card"> -->
+            <!-- <div class="card-header"> -->
+              <h3>Description :</h3>
+            <!-- </div> -->
+            <!-- <div class="card-body"> -->
+              {{list.LONG_DESC}}
+            <!-- </div> -->
+            <!-- <div class="row">
+              <button class="btn btn-primary" style="font-size: 10px" (click)="detail(list.COMPANY_ID)">View
+                More Details</button>
+            </div> -->
+          </div>
+        </div>
+
+
+        <div class="col-md-6 col-lg-6">
+          <!-- <div class="card"> -->
+            <div class="card-body">
+              <div class="embed-responsive embed-responsive-16by9">
+                <div [innerHtml]="yt_url"></div>
+              </div>
+           
+          <!-- </div> -->
+          <br>
+          <div class="button-container">
+           <button *ngIf="alreadyInterest" type="button" (click)="saveList(list.COMPANY_ID)" class="btn btn-success ">
+              I'm Interested </button>
+            <button *ngIf="alreadySave" type="button" class="btn btn-info">
+                View Checklist </button>
+            <button type="button"  class="btn btn-danger pull-right" data-toggle="modal" (click)="myModal.show()">
+              <i class="fa fa-google-plus-g"></i> Contact Seller </button>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div *ngIf="user_name!=undefined">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 col-lg-6">
+              <ngui-map zoom="10" center="{{position}}">
+                <street-view-panorama position="{{position}}" pov="{heading: 165, pitch: 0}" zoom="1"></street-view-panorama>
+              </ngui-map>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <ngui-map zoom="10" center="{{position}}">
+                <marker position="{{position}}"></marker>
+              </ngui-map>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-header">
+          You may also like
+        </div>
+        <div class="card-body">
+          <div *ngFor="let l of productList;let i=index">
+            <div *ngIf="i<3" class="card" (click)="detail(l.COMPANY_ID)">
+              <span *ngIf="l.IMG_NAME==null">
+                <img class="card-img-top" src="{{'../assets/img/null.jpg'}}" height="200px" alt="Card image cap">
+              </span>
+              <span *ngIf="l.IMG_NAME!=null">
+                <img class="card-img-top" src="{{'../assets/img/' + l.IMG_NAME}}" height="200px" alt="Card image cap">
+              </span>
+              <div class="card-body">
+                <h3 class="card-title" style="height:50px;overflow-y: hidden;font-size: 15px;font-weight: bold">{{l.TITLE}}</h3>
+
+                <div class="row">
+                  <h6 style="margin-left: 10px;"> {{l.PRICE | currency}} </h6>
+                  <h6 style="margin-left: auto; margin-right: 10px;">
+                    <i class="now-ui-icons location_pin" style="font-size:20px;color:red"></i>
+                    &nbsp;{{l.STATE}}</h6>
+                </div>
+                <button class="btn btn-primary" style="font-size: 10px" (click)="detail(l.COMPANY_ID)">View
+                  Documents</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Contact Broker</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <form [formGroup]="contactSellerData" (ngSubmit)="sendMail()">
+                <div class="content">
+                  <div class="row">
+                    <div class="col-12 col-lg-12">
+                      <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" formControlName="FullName" placeholder="Full Name"
+                          [ngClass]="{ 'is-invalid': submitted && f.FullName.errors }">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-12">
+                      <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="text" class="form-control" formControlName="Email" placeholder="Your Email"
+                          [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-12">
+                      <div class="form-group">
+                        <label>Your Phone</label>
+                        <input type="text" class="form-control" formControlName="Phone" placeholder="Your Phone"
+                          [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-lg-12">
+                      <div class="form-group">
+                        <label>Message Box</label>
+                        <textarea rows="4" cols="80" class="form-control" formControlName="MessageBox" placeholder="Write Your Messsage Here..."
+                          [ngClass]="{ 'is-invalid': submitted && f.MessageBox.errors }"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col text-center">
+                      <button type="submit" class="btn btn-info btn-fill btn-wd btn-round"> Send Mail </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

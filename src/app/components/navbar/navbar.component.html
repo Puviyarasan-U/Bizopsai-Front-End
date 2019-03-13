@@ -1,0 +1,206 @@
+<nav class="navbar navbar-expand-lg navbar-absolute bg-primary fixed-top">
+   <div class="container-fluid">
+       
+    <a href="/buy"><img src="../../assets/img/goldlogo.png"  style="height:60px;"></a>    
+    <div class="navbar-toggle">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+        </button>
+    </div>
+   
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+        <a class="nav-item nav-link " href="/buy">Buy <span class="sr-only">(current)</span></a>
+        <a  *ngIf="isLoggedUser" class="nav-item nav-link" href="/seller">Sell</a>
+        <a  *ngIf="!isLoggedUser" class="nav-item nav-link" style="cursor:pointer"  data-toggle="modal" data-target="#login">Sell</a>
+        <a class="nav-item nav-link" href="/lease">Lease</a>
+        <!-- <a class="nav-item nav-link" href="#">Operate</a> -->
+        <div class="nav-item " style="cursor:pointer" ngbDropdown>
+          <a class="nav-item nav-link" id="dropdownBasic1" ngbDropdownToggle>                 
+            <p>Operate</p>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a class="dropdown-item" href="/operate/hire">Hire a Professional</a>
+            <a class="dropdown-item" href="/operate/product"> Buy a product</a>                 
+          </div>
+        </div>
+      </ul>
+
+      <button class="navbar-toggler" type="button" (click)="collapse()"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+      </button>
+      <!-- <div class="nav navbar-nav navbar-right">        -->
+      <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">    
+        <ul *ngIf="!isLoggedUser"  class="navbar-nav navbar-right">
+            <li class="nav-item"><a  class="nav-item nav-link" style="cursor:pointer" data-toggle="modal" data-target="#login" #openLogin><i class="now-ui-icons media-2_sound-wave"></i>LOGIN & SIGNUP</a></li>
+        </ul>
+        <ul *ngIf="isLoggedUser" class="navbar-nav navbar-right">
+            <li class="nav-item" *ngIf="isAdmin"> <a class="nav-item nav-link" href="/admin"> <i class="now-ui-icons users_single-02"></i>{{user_name}} </a></li>
+            <li class="nav-item" *ngIf="!isAdmin"><a class="nav-item nav-link" > <i class="now-ui-icons users_single-02"></i> {{user_name}}</a></li>
+            <li class="nav-item"><a class="nav-item nav-link" href="/grid"><i class="now-ui-icons files_box"></i>Account</a></li>
+            <li class="nav-item"><a class="nav-item nav-link" (click)="logout()"><i class="now-ui-icons shopping_shop"></i> Logout </a></li>
+        </ul>
+      </div>
+    </div>
+   </div>
+  </nav>
+
+<div class="modal fade bd-example-modal" id=login
+     tabindex="-1" role="dialog" 
+      aria-hidden="true">
+  <div class="modal-dialog modal-lg">     
+    <div class="modal-content">
+        <div class="modal-body" style="height: -webkit-fill-available; background-color: #eef3f5;">
+            <button type="button" style="width: 20px;" class="close" aria-describedby="modal-title" data-dismiss="modal" #closeLogin >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <div class="col-lg-6 offset-lg-6 " style="margin-top:10px">                                       
+                <div class="card" style="height: 500px;"> 
+                   <div class="header">
+                      <h4 class="title" style="font-weight:bold;text-align:center;font-size: 30px">Login</h4>
+                   </div>
+                          <div class="content" style="margin-top: 50px;">                                   
+                               <div class="row">
+                               <div class="col-10 col-lg-10">
+                                  <div class="input-group" style="margin-left: 40px;" [ngClass]="{'input-group-focus':focus===true}">
+                                    <div class="input-group-prepend" >
+                                        <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+                                    </div>
+                                    <input type="text" (keyup)="trimValue($event)"
+                                     class="form-control" [(ngModel)]="userEmail" placeholder="Email" (focus)="focus=true" (blur)="focus=false" >
+                                  </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-10 col-lg-10">
+                                  <div class="input-group" style="margin-left: 40px;" [ngClass]="{'input-group-focus':focus===true}">
+                                    <div class="input-group-prepend" >
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input type="password" (keyup)="trimValue($event)"
+                                    class="form-control" [(ngModel)]="userPassword" placeholder="Password" (focus)="focus=true" (blur)="focus=false" >
+                                  </div>
+                              </div>
+                            </div>                                   
+                                   <div class="row">
+                                          <div class="form-group" style="margin-left:120px;">
+                                              <button type="submit" class="btn btn-info btn-fill btn-wd btn-round"
+                                                      (click)="login()"> Login  </button>
+                                          </div>
+                                   </div>    
+                                    <div class="row">
+                                       <div class="form-group "style="margin-left:100px;" >
+                                       No account? <a data-toggle="modal" style="cursor:pointer" data-dismiss="modal"  data-target="#register" >Create one!</a>
+                                     </div>
+                                </div>                                         
+                          </div>
+                   </div>
+                </div>       
+        </div>         
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal" id=register
+     tabindex="-1" role="dialog" 
+      aria-hidden="true">
+  <div class="modal-dialog modal-lg">     
+    <div class="modal-content">
+        <div class="modal-body " style="height: -webkit-fill-available;background-color: #eef3f5;">
+            <button type="button" style="width: 20px;" class="close" aria-describedby="modal-title" data-dismiss="modal" #closeRegister>
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- <div class=""></div>
+              <div class="col-lg-6 col-md-6">
+                  <img src="{{'../assets/img/store1.jpg'}}" class="card-img-top" height="500px"
+                  style="height:350px;width:720px;" alt="Card image cap"> 
+              </div> -->
+              <div class="col-lg-6 offset-lg-6 " style="margin-top:10px">                                       
+                <!-- <div class="col-lg-8 col-md-8" style="margin-left: 200px;margin-top: 100px">                                        -->
+                    <div class="card" style="height: 500px;"> 
+                      <div class="header" >
+                          <h4 class="title" style="font-weight:bold;text-align:center;font-size: 30px">Register</h4>
+                       </div>
+                       <div class="content" style="margin-top: 50px;margin-left: 20px">  
+                       <form [formGroup]="userRegisterData" (ngSubmit)="register()">
+                          <div class="content" >
+                                  <div class="row">
+                                      <div class="col-sm-10 col-lg-10">
+                                          <div class="form-group">  
+                                              <label>Name</label>                                                  
+                                              <input type="text" (keyup)="trimValue($event)" class="form-control" 
+                                                  placeholder="Name" formControlName="FirstName"  [(ngModel)]="userName"
+                                                  [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" >
+                                               <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                                                   <div *ngIf="f.FirstName.errors.required">Name is required</div>
+                                               </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                           <div class="col-sm-10 col-lg-10">
+                                              <div class="form-group">  
+                                              <label>Email</label>                                                  
+                                                  <input type="text"  (keyup)="trimValue($event)"  class="form-control "
+                                                  placeholder="Email"  formControlName="Email"  [(ngModel)]="user_Email" 
+                                                  [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                                                  <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                                                      <div *ngIf="f.Email.errors.required">Email is required</div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+              
+                                      <div class="row">
+                                          <div class="col-sm-10 col-lg-10">
+                                            <div class="form-group">  
+                                              <label>Password</label>                                                  
+                                              <input type="password"  (keyup)="trimValue($event)"  class="form-control "
+                                                  placeholder="Password"  formControlName="Password" [(ngModel)]="user_Password"
+                                                  [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" >
+                                                  <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                                                          <div *ngIf="f.Password.errors.required">Password is required</div>
+                                                      </div>
+                                            </div>
+                                        </div>                                    
+                                      </div>                          
+              
+                                      <div class="row">                                       
+                                         <div class="col-sm-10 col-lg-10">
+                                          <div class="form-group">    
+                                              <label>Confirm Password</label>                                                
+                                              <input type="password"  (keyup)="trimValue($event)"  class="form-control border-input"
+                                                  placeholder="Confirm Password"  formControlName="ConfirmPassword" [(ngModel)]="userConPassword"
+                                                   [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }">
+                                                   <div *ngIf="submitted && f.ConfirmPassword.errors" class="invalid-feedback">
+                                                          <div *ngIf="f.ConfirmPassword.errors.required">Confirm Password is required</div>
+                                                     </div>                                        
+                                                    <div *ngIf="isMatch" style="color: red;font-size: 14px">                                                
+                                                          Confirmation Password Mismatch
+                                                    </div>                                                      
+                                             </div>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                              <div class="form-group text-center">
+                                                  <button type="submit"  class="btn btn-info btn-fill btn-wd btn-round"    
+                                                           style=" margin-left: 100px; "> Register
+                                                  </button>
+                                              </div>
+                                      </div>                                                                                                  
+                              </div>
+                          </form>
+                      </div>
+                   </div>
+              </div>
+        </div>         
+    </div>
+  </div>
+</div>
+
+

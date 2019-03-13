@@ -1,0 +1,41 @@
+<div class="col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Business Information</h3>
+      </div>
+      <div  class="card-body">
+        <div *ngIf='businessInfoData.length>0;' class="bd-example">
+          <dl class="row">
+            <dt class="col-sm-3">Title</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].TITLE }}</dd>
+  
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].CATEGORY }}</dd>
+  
+            <dt class="col-sm-3 text-truncate">Sub Category</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].SUBCATEGORY }}</dd>
+  
+            <dt class="col-sm-3 text-truncate">State</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].STATE}}</dd>
+
+            <dt class="col-sm-3 text-truncate">County</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].COUNTY}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Address</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].ADDRESS}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Company Type</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].COMPANY_TYPE}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Price</dt>
+            <dd class="col-sm-9">{{businessInfoData[0].PRICE | currency}}</dd>
+          </dl>
+        </div>
+        <div *ngIf='isNoBusinessData'>         
+          <img src="../../../assets/img/norecord.png "  class="img-fluid"
+           alt="No Data Found">
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,160 @@
+<!-- <div>
+  <div *ngIf="user_name" class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Notification </h4>         
+      </div>
+
+      <div class="card-body" *ngIf="isData">
+        <div *ngFor='let d of Data'>
+          <p> You Have a Request From {{d.USERNAME}} For {{d.TRAN_ID}} </p>
+          <button class="btn btn-info" (click)="moreDetail(d.TRAN_ID)"> View Details </button>
+          &nbsp;
+          <button class="btn btn-success" (click)="acceptRequest(d.TRAN_ID)"> Accept request </button>
+        </div>   
+        <div *ngFor='let d of dataroom_requests'>
+            <p> You Have a Data Room Request From {{d.BUYER_NAME}} For {{d.TRAN_ID}} </p>
+            <button class="btn btn-info" (click)="moreDetail(d.TRAN_ID)"> View Details </button>
+            &nbsp;
+            <button class="btn btn-success" (click)="acceptDataroom(d.TRAN_ID)"> Accept request </button>
+        </div>    
+      </div>
+     
+      <div *ngIf="!isData">
+          <div class="card-body">
+              <img  src="../assets/img/empty.jpg " height="200px" alt="Card image cap">
+          </div>
+     </div>
+    </div>
+  
+</div>
+
+<div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-sm" role="document">
+  <div class="modal-content">
+      <div class="modal-body">
+          Are you sure you want to preview this product ? 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="viewModal.hide()">No</button>
+          <button type="button" class="btn btn-primary"  >Yes</button>
+        </div>
+  </div>
+</div>
+</div> -->
+<div *ngIf="isBuyer" class="card">
+    <div class="card-header">
+      <h4>Welcome {{user_name}}</h4>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">           
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
+              style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <!-- <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending"
+                    style="width: 233px;">S.No</th> -->
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">USER</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">NOTIFICATION</th>  
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">CREATED DATETIME</th>                      
+                </tr>
+              </thead>
+              <tbody *ngFor="let l of buyerNotifications | paginate: { itemsPerPage: 8, currentPage: p }">
+                <tr role="row" class="odd">
+                  <!-- <td class="sorting_1">{{l.ID}}</td> -->
+                  <td>{{userAdmin}}</td>    
+                  <td>{{l.NOTIFICATION}}</td>                
+                  <td>{{l.CREATED_DATETIME}}</td>               
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-center" style="margin:1rem;font-weight:bold;">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isSeller" class="card">
+    <div class="card-header">
+      <h4>Welcome {{user_name}}</h4>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">           
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
+              style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <!-- <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending"
+                    style="width: 233px;">S.No</th> -->
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">USER</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">NOTIFICATION</th>  
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">CREATED DATETIME</th>                      
+                </tr>
+              </thead>
+              <tbody *ngFor="let l of sellerNotifications | paginate: { itemsPerPage: 8, currentPage: p }">
+                <tr role="row" class="odd">
+                  <!-- <td class="sorting_1">{{l.ID}}</td> -->
+                  <td>{{userAdmin}}</td>    
+                  <td>{{l.NOTIFICATION}}</td>                
+                  <td>{{l.CREATED_DATETIME}}</td>               
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-center" style="margin:1rem;font-weight:bold;">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isProfessional" class="card">
+    <div class="card-header">
+      <h4>Welcome {{user_name}}</h4>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">           
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
+              style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <!-- <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending"
+                    style="width: 233px;">S.No</th> -->
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">USER</th>
+                  <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">NOTIFICATION</th>  
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending"
+                    style="width: 200px;">CREATED DATETIME</th>                      
+                </tr>
+              </thead>
+              <tbody *ngFor="let l of professionalNotifications | paginate: { itemsPerPage: 8, currentPage: p }">
+                <tr role="row" class="odd">
+                  <!-- <td class="sorting_1">{{l.ID}}</td> -->
+                  <td>{{userAdmin}}</td>    
+                  <td>{{l.NOTIFICATION}}</td>                
+                  <td>{{l.CREATED_DATETIME}}</td>               
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-center" style="margin:1rem;font-weight:bold;">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

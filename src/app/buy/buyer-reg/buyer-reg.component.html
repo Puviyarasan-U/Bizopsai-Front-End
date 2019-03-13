@@ -1,0 +1,243 @@
+<form [formGroup]="BuyerRegisterData" (ngSubmit)="buyerRegister()">
+    <div class="col-md-12 col-lg-12">
+        <ngb-tabset #tab="ngbTabset" class="tabset1">
+            <ngb-tab title="Personal Info" id="tab-personal">
+                <ng-template ngbTabContent>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" formControlName="Name" class="form-control" [(ngModel)]="username" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }"
+                                                    />
+                                                    <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.Name.errors.required">Name is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Home address</label>
+                                                    <input type="text" formControlName="homeAddress" class="form-control" [(ngModel)]="homeAddress" [ngClass]="{ 'is-invalid': submitted && f.homeAddress.errors }"
+                                                    />
+                                                    <div *ngIf="submitted && f.homeAddress.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.homeAddress.errors.required">Home address is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Agent Name</label>
+                                                    <input type="text" formControlName="agentName" class="form-control" [(ngModel)]="agentname" [ngClass]="{ 'is-invalid': submitted && f.agentName.errors }"
+                                                    />
+                                                    <div *ngIf="submitted && f.agentName.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.agentName.errors.required">Agent Name is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Agent Contact</label>
+                                                    <input type="number" formControlName="agentContact" class="form-control" [(ngModel)]="agentContact" [ngClass]="{ 'is-invalid': submitted && f.agentContact.errors }"
+                                                    />
+                                                    <div *ngIf="submitted && f.agentContact.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.agentContact.errors.required">Agent Contact is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label>Agent Email</label>
+                                                <input type="email" formControlName="agentEmail" class="form-control" [(ngModel)]="agentEmail" [ngClass]="{ 'is-invalid': submitted && f.agentEmail.errors }"
+                                                />
+                                                <div *ngIf="submitted && f.agentEmail.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.agentEmail.errors.required"> Agent Email is required</div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" formControlName="emailAddress" class="form-control" [(ngModel)]="emailAddress" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }"
+                                            />
+                                            <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
+                                                <div *ngIf="f.emailAddress.errors.required"> Email is required</div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Fax Number</label>
+                                            <input type="number" formControlName="faxNumber" class="form-control" [(ngModel)]="faxNumber" [ngClass]="{ 'is-invalid': submitted && f.faxNumber.errors }"
+                                            />
+                                            <div *ngIf="submitted && f.faxNumber.errors" class="invalid-feedback">
+                                                <div *ngIf="f.faxNumber.errors.required">Fax Number is required</div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Cell Phone </label>
+                                            <input type="number" formControlName="cellPhone" class="form-control" [(ngModel)]="cellPhone" [ngClass]="{ 'is-invalid': submitted && f.cellPhone.errors }"
+                                            />
+                                            <div *ngIf="submitted && f.cellPhone.errors" class="invalid-feedback">
+                                                <div *ngIf="f.cellPhone.errors.required">Cell Phone Number is required</div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Home Phone </label>
+                                            <input type="number" formControlName="homePhone" class="form-control" [(ngModel)]="homePhone" [ngClass]="{ 'is-invalid': submitted && f.homePhone.errors }"
+                                            />
+                                            <div *ngIf="submitted && f.homePhone.errors" class="invalid-feedback">
+                                                <div *ngIf="f.homePhone.errors.required">Home Phone Number is required</div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Secretary Name</label>
+                                                    <input type="text" formControlName="secName" class="form-control" [(ngModel)]="secName" [ngClass]="{ 'is-invalid': submitted && f.secName.errors }"
+                                                    />
+                                                    <div *ngIf="submitted && f.secName.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.secName.errors.required">Secretary Name is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Secretary Number</label>
+                                                    <input type="number" formControlName="secNum" class="form-control" [(ngModel)]="secNum" [ngClass]="{ 'is-invalid': submitted && f.secNum.errors }"
+                                                    />
+                                                    <div *ngIf="submitted && f.secNum.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.secNum.errors.required"> Secretary Number is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-sm-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Best TelePhone Number </label>
+                                            <input type="number" formControlName="bestTelePhone" class="form-control" [(ngModel)]="bestTelePhone" [ngClass]="{ 'is-invalid': submitted && f.bestTelePhone.errors }"
+                                            />
+                                            <div *ngIf="submitted && f.bestTelePhone.errors" class="invalid-feedback">
+                                                <div *ngIf="f.bestTelePhone.errors.required">Best TelePhone Number is required</div>
+                                            </div>
+                                        </div>
+                                        </div>                                       
+                                        <div class="col-sm-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Home TelePhone Numer</label>
+                                            <input type="number" formControlName="homeTelePhone" class="form-control" [(ngModel)]="hometelePhone" [ngClass]="{ 'is-invalid': submitted && f.homeTelePhone.errors }"
+                                            />
+                                            <div *ngIf="submitted && f.homeTelePhone.errors" class="invalid-feedback">
+                                                <div *ngIf="f.homeTelePhone.errors.required">Home Telephone Number is required</div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Financials details" id="tab-finance">
+                <ng-template ngbTabContent>
+
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-lg-6">
+                                                <label>Bank Reports</label>
+                                                <input ng2FileSelect [uploader]="bankReportUploader" class="form-control" [(ngModel)]="pdfPage" type="file" id="buy-bankPDF">                                              
+                                                <button type="button" class="btn btn-sm btn-default" (click)="clearbankReportFile()">clear file</button>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-lg-6">
+                                                <label>License Reports</label>
+                                                <input ng2FileSelect [uploader]="licenseReportUploader" class="form-control" [(ngModel)]="licenseReportPDF" type="file" id="buy-licenseRep">
+                                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                                <button type="button" class="btn btn-sm btn-default" (click)="clearLicenseReport()">clear file</button>
+                                            </div>
+                                            <!-- <div *ngIf="showPdf">
+                                                      <pdf-viewer [src]="pdfSrc"
+                                                        [render-text]="true"
+                                                        [page]="page" 
+                                                        [show-all]="false"
+                                                        style="display: block;">
+                                                      </pdf-viewer>
+                                                   </div> -->
+                                        </div>
+
+                                        <!-- <div class="row">
+                                            <div>
+                                                <label>Certificates</label>
+                                                <input ng2FileSelect [uploader]="certificateUploader" class="form-control" [(ngModel)]="certPDF" type="file" id="buy-certificateRep">
+                                             
+                                                <button type="button" class="btn btn-sm btn-default" (click)="clearCertificateFile()">clear file</button>
+                                            </div>
+                                         
+                                        </div> -->
+                                        <div class="row">
+                                             <div class="col-sm-6 col-lg-6">
+                                                <label>Financial Statements</label>
+                                                <input ng2FileSelect [uploader]="finStatementsUploader" class="form-control" [(ngModel)]="finsPDF" type="file" id="buy-finState">
+                                                <!-- <input [(ngModel)]="page" type="text" id="page" class="form-control" > -->
+                                                <button type="button" class="btn btn-sm btn-default" (click)="clearFinStateFile()">clear file</button>
+                                            </div>
+                                            <!-- <div *ngIf="showPdf">
+                                                      <pdf-viewer [src]="pdfSrc"
+                                                        [render-text]="true"
+                                                        [page]="page" 
+                                                        [show-all]="false"
+                                                        style="display: block;">
+                                                      </pdf-viewer>
+                                                   </div> -->
+                                        </div>
+                                        <!-- <div class="row">
+                                            <div>
+                                                <label>Insurance Info</label>
+                                                <input ng2FileSelect [uploader]="insuranceUploader" class="form-control" [(ngModel)]="insPDF" type="file" id="buy-insurance">
+                                               
+                                                <button type="button" class="btn btn-sm btn-default" (click)="clearFinStateFile()">clear file</button>
+                                            </div>
+                                          
+                                        </div> -->
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </form> -->
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+        <div class="row">
+            <div class="form-group">
+                <button type="submit" style="width:150px" class="btn btn-primary float-right">Save Property</button>
+            </div>
+        </div>
+    </div>
+</form>

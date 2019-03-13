@@ -1,0 +1,39 @@
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+          <h4 class="title text-center" style="font-weight: bold">
+              Tenant Registration
+          </h4>
+      </div>
+      <div class="card-body">
+          <form >
+              <div class="container-fluid">
+                  <ngb-tabset #tab="ngbTabset" [justify]="justified">
+                    <ngb-tab title="Personal Info" id='0'>
+                      <ng-template ngbTabContent>
+                        <app-personal-form [personal]="checkoutForm.controls.personal" (talk)="talkBack($event)"></app-personal-form>
+                      </ng-template>
+                    </ngb-tab>
+                    <!-- <ngb-tab title="Business Entity" id='1'>
+                      <ng-template ngbTabContent>
+                        <app-business-entity-form (formReady)="formInitialized('business', $event)" (talk)="talkBack($event)"></app-business-entity-form>
+                      </ng-template>
+                    </ngb-tab> -->
+                    <!-- <ngb-tab title="Building Info" id='2'>
+                      <ng-template ngbTabContent>
+                        <app-building-info-form (formReady)="formInitialized('building', $event)" (talk)="talkBack($event)"></app-building-info-form>
+                      </ng-template>
+                    </ngb-tab>                   -->
+                    <ngb-tab title="Financial Info" id='2'>
+                      <ng-template ngbTabContent>
+                        <app-financial-info-form  (talk)="talkBack($event)"></app-financial-info-form>
+                      </ng-template>
+                    </ngb-tab>                 
+                  </ngb-tabset>
+                </div>
+          </form>
+          
+      </div>
+    </div>
+  </div>
+  

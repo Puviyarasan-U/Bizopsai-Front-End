@@ -1,0 +1,38 @@
+<div class="col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Building Information</h3>
+      </div>
+      <div  class="card-body">
+        <div *ngIf='buildingInfoData.length>0;' class="bd-example">
+          <dl class="row">
+            <dt class="col-sm-3">Building Type</dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].BUILDING_TYPE }}</dd>
+  
+            <dt class="col-sm-3">Building Sub Type</dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].BUILDING_SUBTYPE }}</dd>
+  
+            <dt class="col-sm-3 text-truncate">Building Size</dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].BUILDING_SIZE }}</dd>
+  
+            <dt class="col-sm-3 text-truncate">Built Year </dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].BUILT_YEAR}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Building Zone </dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].BUILDING_ZONE}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Parking </dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].PARKING}}</dd>
+
+            <dt class="col-sm-3 text-truncate">No Of Restrooms </dt>
+            <dd class="col-sm-9">{{buildingInfoData[0].NO_OF_RESTROOMS}}</dd>
+          </dl>
+        </div>
+        <div *ngIf='isNoBuildingData'>        
+          <img src="../../../assets/img/norecord.png "  class="img-fluid"
+           alt="No Data Found">
+        </div>
+      </div>
+    </div>
+  </div>
+  

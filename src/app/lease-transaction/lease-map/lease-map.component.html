@@ -1,0 +1,258 @@
+<div class="card">
+  <div class="card-header">
+    <div *ngIf="!isprofessional && !isSellerTran" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="businessList"
+          [(ngModel)]="companyId"
+          bindLabel="COMPANY_NAME"
+          bindValue="BUS_ENT_ID"
+          placeholder="Select Business"
+          (change)="changeCompany()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            {{ item.COMPANY_NAME }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.COMPANY_NAME }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div *ngIf="isSellerTran" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="sellerList"
+          [(ngModel)]="companyId"
+          bindLabel="TITLE"
+          bindValue="BUS_ENT_ID"
+          placeholder="Select Business"
+          (change)="changeCompany()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            {{ item.COMPANY_NAME }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.COMPANY_NAME }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div *ngIf="isprofessional" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Choose Role</h3></label>
+        <ng-select
+          [items]="agentType"
+          bindLabel="name"
+          bindValue="value"
+          placeholder="Select Role"
+          [(ngModel)]="user_role"
+          (change)="onRoleChange()"
+        >
+        </ng-select>
+      </div>
+    </div>
+    <div *ngIf="isBuyer || isSeller" class="col-sm-6 col-lg-6 ">
+      <div class="form-group">
+        <label><h3>Select Your Business</h3></label>
+        <ng-select
+          [items]="professionalList"
+          [(ngModel)]="tranId"
+          bindLabel="TITLE"
+          bindValue="TRAN_ID"
+          placeholder="Select Business"
+          (change)="changeTransaction()"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <img height="15" width="15" [src]="item.avatar" />
+            {{ item.COMPANY_NAME }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.COMPANY_NAME }}, {{ item.ADDRESS }} ({{ item.TRAN_ID }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card">
+      <div *ngIf="isbuyerList && !isProcess" class="card-body">
+        <div *ngIf="!isLandlordLogin" class="card">
+          <div class="card-header"><h4>Business Info</h4></div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-sm-3"><h5>Business Name :</h5></dt>
+              <dd class="col-sm-3">
+                <h5>{{ buyerListBiz[0].COMPANY_NAME }}</h5>
+              </dd>
+
+              <dt class="col-sm-3"><h5>Address :</h5></dt>
+              <dd class="col-sm-3">
+                <h5>{{ buyerListBiz[0].ADDRESS }}</h5>
+              </dd>
+
+              <dt class="col-sm-3 text-truncate"><h5>Rent :</h5></dt>
+              <dd class="col-sm-3">
+                <h5>{{ buyerListBiz[0].RENT | currency }}</h5>
+              </dd>
+
+              <dt class="col-sm-3 text-truncate"><h5>State :</h5></dt>
+              <dd class="col-sm-3">
+                <h5>{{ buyerListBiz[0].STATE }}</h5>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div *ngIf="!isLandlordLogin" class="card">
+          <diV class="card-header"> <h4>Landlord Info</h4></diV>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-sm-3"><h5>landlord :</h5></dt>
+              <dd class="col-sm-3">
+                <h5>{{ buyerListBiz[0].SELLER }}</h5>
+              </dd>
+
+              <dt class="col-sm-3"><h5>Principle Agent :</h5></dt>
+              <dd class="col-sm-3">
+                <h5>
+                  <a
+                    (click)="navigateProfDetail(buyerListBiz[0].SELLER_PROF_ID)"
+                    style="text-decoration-line: underline;cursor:pointer"
+                  >
+                    {{ buyerListBiz[0].SELLER_PROF }}
+                  </a>
+                </h5>
+              </dd>
+            </dl>
+            <button
+              type="button"
+              style="margin-left:5px"
+              class="btn btn-sm btn-info"
+              (click)="viewBizServices(buyerListBiz[0].BUS_ENT_ID)"
+            >
+              <i class="fa fa-search"></i>&nbsp; View Services
+            </button>
+            <div
+              class="card-body"
+              *ngIf="selected_ComId == buyerListBiz[0].BUS_ENT_ID"
+            >
+              <div *ngFor="let l of seller_services">
+                <h4 class="row">
+                  {{ l.SERVICE_TYPE }}&nbsp;: {{ l.USERNAME }} &nbsp;
+                  <!-- {{ l.EMAIL }}  -->
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isTenantLogin">
+          <div class="row">
+            <div class="ml-auto ">
+              <button
+                type="button"
+                class="btn btn-warning"
+                (click)="moreBuyerDetails()"
+              >
+                More Tenants
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-md-6 col-sm-6 card"
+              *ngFor="
+                let l of (buyerListBiz
+                  | paginate: { itemsPerPage: 8, currentPage: p });
+                let i = index
+              "
+            >
+              <diV class="card-header">
+                <h4>Tenant #{{ i + 1 }} Info</h4>
+              </diV>
+              <div class="card-body">
+                <dl class="row">
+                  <dt class="col-sm-3"><h5>Tenant :</h5></dt>
+                  <dd class="col-sm-3">
+                    <h5>{{ l.BUYER }}</h5>
+                  </dd>
+                  <dt class="col-sm-3"><h5>Principle Agent :</h5></dt>
+                  <dd class="col-sm-3">
+                    <h5>
+                      <a
+                        (click)="
+                          navigateProfDetail(buyerListBiz[0].SELLER_PROF_ID)
+                        "
+                        style="text-decoration-line: underline;cursor:pointer"
+                      >
+                        {{ l.BUYER_PROF }}
+                      </a>
+                    </h5>
+                  </dd>
+                </dl>
+                <button
+                  type="button"
+                  style="margin-left:5px"
+                  class="btn btn-sm btn-info"
+                  (click)="addServices(l.TRAN_ID)"
+                >
+                  <i class="fa fa-search"></i>&nbsp; View Services
+                </button>
+
+                <div class="card-body" *ngIf="selected_TranId == l.TRAN_ID">
+                  <div *ngFor="let l of services_list">
+                    <h4 class="row">
+                      {{ l.SERVICE_TYPE }}&nbsp;: {{ l.USERNAME }} &nbsp;
+                      <!-- {{ l.EMAIL }}  -->
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isProcess && isBuyerLogin">
+        <div class="card-body">
+          <div class="row">
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let l of CheckList">
+                  <div class="form-group">
+                    {{ l.ORDER_NUM }}.&nbsp; {{ l.STEPS }} &nbsp;&nbsp;
+                    <input
+                      type="checkbox"
+                      [checked]="l.STATUS"
+                      style="float:right"
+                      (change)="toggleVisibility(l.ORDER_NUM)"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="updateProcess()"
+          >
+            <i class="fa fa-plus"></i> Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isProcess">
+  <ul class="list-unstyled multi-steps">
+    <li *ngFor="let l of CheckList" [ngClass]="{ 'is-active': l.STATUS == 0 }">
+      {{ l.STEPS }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,32 @@
+<div class="animated fadeIn">
+    <div *ngIf='isDetail' class="card">
+        <div class="card-header">
+          {{profData.USERNAME}}
+        </div>
+        <div class="card-body"> 
+          <div class="row">
+              <div class="col-lg-4 col-md-6" >
+                  <span >
+                    <img src="{{'../assets/img/' + profData.IMG_NAME}}" class="card-img-top" 
+                          style="height:300px;" alt="{{profData.USERNAME}}"> 
+                  </span> 
+              </div> 
+              <div class="col-lg-8 col-md-6">  
+                <h4> Mail Id  : {{profData.EMAIL}} </h4>
+                <h4> Category : {{profData.CATEGORY}} </h4>                          
+                <h4> State    : {{profData.HOME_ADDRESS}} </h4>                          
+
+                <p> {{profData.ABOUT}}  </p>  
+              </div>  
+         </div>           
+         </div>     
+        <div class="card-footer">
+
+        </div>
+     </div>
+     <div *ngIf='!isDetail' class="card">
+        <div class="card-body">
+            <img  src="../assets/img/empty.jpg " height="200px" alt="Card image cap">
+        </div>
+      </div>
+</div>

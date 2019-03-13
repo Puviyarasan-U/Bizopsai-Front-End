@@ -1,0 +1,434 @@
+
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div *ngIf="isprofessional">
+          <div class="row">
+            <div class="col-sm-5 col-lg-5">
+              <div class="form-group">
+                <label><h3>Choose Role</h3></label>
+                <ng-select
+                  [items]="agentType"
+                  bindLabel="name"
+                  bindValue="value"                  
+                  placeholder="Select Role"
+                  [(ngModel)]="user_role"
+                  (change)="onRoleChange()"
+                >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="sellerDocs" class="row">
+          <div class="col-sm-5 col-lg-5">
+            <div class="form-group">
+              <label><h3>Choose business</h3></label>
+              <ng-select
+                [items]="list"
+                [(ngModel)]="businessTitle"
+                bindLabel="TITLE"
+                bindValue="COMPANY_ID"
+                placeholder="Select Business"
+                (change)="sellerTransaction()"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" width="15" [src]="item.avatar" />
+                  {{ item.TITLE }}, {{ item.ADDRESS }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.TITLE }}, {{ item.ADDRESS }}
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!sellerDocs" class="row">
+          <div class="col-sm-5 col-lg-5">
+            <div class="form-group">
+              <label><h3>Choose business</h3></label>
+              <ng-select
+                [items]="TransactionsList"
+                [(ngModel)]="currentTransaction"
+                bindLabel="TITLE"
+                bindValue="COMPANY_ID"
+                placeholder="Select Business"
+                (change)="changeTransaction()"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" width="15" [src]="item.avatar" />
+                  {{ item.TITLE }}, {{ item.ADDRESS }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.TITLE }}, {{ item.ADDRESS }}
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </div>   
+
+<!-- <div class="row">
+  <div class="card" style="height:100%;width:100%"> -->
+    <div class="card-body">
+      <div class="container-fluid">
+      <div *ngFor="let l of TransBusiness">
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">License Documents</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1"
+                    (click)="licenseReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidelicenseReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+
+            <div *ngIf="showlicensePdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.LICENSE_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Social Security</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1"
+                    (click)="socReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidesocReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showsocPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.SOC_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">License Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1"
+                    (click)="liReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hideliReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showlirPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.LIR_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Bank Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1 "
+                    (click)="bankReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidebankReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showbankPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.BANK_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Certificates Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1 "
+                    (click)="certReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidecertReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showcertPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.CERTFICATE_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Reports</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1 "
+                    (click)="repReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hiderepReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+
+            <div *ngIf="showrpPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.RP_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Financial Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1 "
+                    (click)="finReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidefinReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showfinPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.FIN_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Insurance Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1"
+                    (click)="insReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hideinsReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showinrPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.INR_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">NDA Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1"
+                    (click)="ndaReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidendaReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="showndaPdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.NDA_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+          <div class="col-sm-10 col-lg-10">
+            <div class="bd-example">
+              <dl class="row">
+                <dt class="col-sm-3">Pre Lease Report</dt>
+                <dd class="col-sm-9">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-info col-sm-1"
+                    (click)="preleaseReport()"
+                  >
+                    Show
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger col-sm-1 offset-sm-2"
+                    (click)="hidepreleaseReport()"
+                  >
+                    Hide
+                  </button>
+                </dd>
+              </dl>
+            </div>
+            <div *ngIf="preleasePdf">
+              <pdf-viewer
+                src="{{ '../assets/img/SocialDocs/' + l.PR_IMG }}"
+                [render-text]="true"
+                [page]="page"
+                [show-all]="true"
+                style="display: block;"
+              >
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+<!-- </div>  -->
+</div>
+</div>

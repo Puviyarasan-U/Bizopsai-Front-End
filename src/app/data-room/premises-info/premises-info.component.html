@@ -1,0 +1,29 @@
+<div class="col-md-12 col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Premises Information</h3>
+      </div>
+      <div  class="card-body">
+        <div *ngIf='premisesInfoData.length>0;' class="bd-example">
+          <dl class="row">
+            <dt class="col-sm-3">Industry Specific</dt>
+            <dd class="col-sm-9">{{premisesInfoData[0].INDUSTRY_SPECIFIC }}</dd>
+  
+            <dt class="col-sm-3">Zoning</dt>
+            <dd class="col-sm-9">{{premisesInfoData[0].ZONING }}</dd>
+  
+            <dt class="col-sm-3 text-truncate">Pre Size</dt>
+            <dd class="col-sm-9">{{premisesInfoData[0].PRE_SIZE }}</dd>
+  
+            <dt class="col-sm-3 text-truncate">Rent</dt>
+            <dd class="col-sm-9">{{premisesInfoData[0].RENT}}</dd>
+          </dl>
+        </div>
+        <div *ngIf='isNoPremisesData'>         
+          <img src="../../../assets/img/norecord.png "  class="img-fluid"
+           alt="No Data Found">
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,422 @@
+<div class="col-lg-12 col-sm-12 col-md-12">
+  <!-- <div class="card">
+   <div class="col-md-9 offset-md-1 col-lg-9 offset-lg-1 ">   
+      <div class="row">
+        <label style="font-weight: bold">What Type of Property?</label>
+      </div>
+    <div class="row">
+      <div class="col-lg-4 col-sm-4">
+        <div class="form-group">
+          <label style="font-weight: bold">Property Type</label>
+          <ng-select
+            [items]="building_types"
+            bindLabel="TYPES"
+            bindValue="TYPES"
+            placeholder=" Property Type"
+            [(ngModel)]="currentBuildingType"
+            (change)="changeBuildingType($event)"
+            (clear)="changeBuildingType(undefined)"
+          >
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-sm-5 offset-sm-1  col-lg-5 offset-lg-1  ">
+        <label style="font-weight: bold">Enter City or Zip Code</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="border-color: blue">
+              <i class="now-ui-icons ui-1_zoom-bold"></i>
+            </div>
+          </div>
+          <input
+            type="text"
+            (input)="onSearchChange($event.target.value)"
+            class="form-control"
+            [(ngModel)]="user_request"
+            style="border-color: blue"
+            placeholder="Ex. Beverly Hills, CA 90210"
+          />
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="row justify-content-center" style="margin-top: 20px;">
+          <span>
+            <button
+              class="btn btn-primary"
+              style="margin-top:10px;margin-left:10px;font-size:10px"
+              (click)="userSearch()"
+            >
+              Search
+            </button>
+          </span>
+          <span *ngIf="!enableMapview">
+            <button
+              class="btn btn-primary"
+              style="margin-top:10px;margin-left:10px;font-size:10px"
+              (click)="search_Mapview()"
+            >
+              Map View
+            </button>
+          </span>
+          <span *ngIf="enableMapview">
+            <button
+              class="btn btn-primary"
+              style="margin-top:10px;margin-left:10px;font-size:10px"
+              (click)="search_Datatable()"
+            >
+              close Mapview
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="col-lg-12 col-sm-12 "> 
+    <div class="card">
+        <div class="card-body">
+        <div class=row>
+       <div class="col-md-10 offset-md-2 col-lg-9 offset-lg-2 ">
+          <div class="row">
+              <label >What Do You Want?</label>
+          </div>
+          <div class="row">
+            <div class="col-md-8 col-lg-8" >              
+              <div class="input-group" style=" margin-top: 10px;" >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="cui-magnifying-glass"></i></span>                     
+                </div> 
+                  <input type="text"  class="form-control" [(ngModel)]="user_request" 
+                  style="border-color: blue" placeholder="Ex: I'm looking for a restaurant in alsaka ">                             
+              </div>
+          </div>
+           <div class="col-md-6 col-lg-4">
+               <div class="row justify-content-center">
+              <span>
+                  <button class="btn btn-primary" style="margin-top:10px;margin-left:10px;font-size:10px" 
+                          (click)="userSearch()">Search</button>                   
+             </span>   
+             <!-- <span  *ngIf='!enableMapview'>
+                  <button class="btn btn-primary" style="margin-top:10px;margin-left:10px;font-size:10px" 
+                          (click)="search_Mapview()">Map View</button>                   
+              </span> 
+              <span  *ngIf='enableMapview'>
+                  <button class="btn btn-primary" style="margin-top:10px;margin-left:10px;font-size:10px" 
+                          (click)="search_Datatable()">close Mapview</button>                   
+              </span>   -->
+            </div>
+          </div>             
+        </div>
+     </div> 
+</div>  
+ 
+      <!-- <div *ngIf='showDropDown'> --> 
+          <div class="row" style="margin-top:15px;">    
+          <div class="col-md-12 col-lg-12">
+              <div class="row">
+                   <div class="col-md-6 col-lg-4">
+                        <div class="row justify-content-center">    
+                            <div class="form-group">  
+                                <ng-select
+                                    style="width:275px;font-weight: bold;"
+                                    [items]="building_types"
+                                    bindLabel="TYPES"
+                                    bindValue="TYPES"
+                                    placeholder="Select Type"
+                                    [(ngModel)]="currentBuildingType"
+                                    (change)="changeBuildingType($event)"
+                                    (clear)="changeBuildingType(undefined)"
+                                  >
+                                  </ng-select>
+                             </div>
+                         </div>
+                   </div> 
+                        
+                  <div class="col-md-6 col-lg-4">
+                      <div class="row justify-content-center"> 
+                              <div class="form-group">
+                  <ng-select [items]="stateList"
+                      style="width:275px;font-weight: bold;"
+                      bindLabel="state"
+                      bindValue="state"
+                      placeholder="Select State"
+                      [(ngModel)]="currentState"
+                      (change)="changeState($event)"
+                      (clear)="changeState(undefined)"
+                      >
+                      </ng-select>
+                      </div>
+                  </div>
+              </div>                   
+              <div class="col-md-6 col-lg-4">
+                  <div class="row justify-content-center">
+                          <div class="form-group">
+                  <ng-select [items]="citiesList"
+                      style="width:275px;font-weight: bold;"
+                      bindLabel="city"
+                      bindValue="city"
+                      placeholder="Select County"
+                      >
+                   </ng-select>
+               </div>
+              </div>
+          </div>        
+     </div>        
+     <div class="row" >
+          <div class="col-md-6 col-lg-4">     
+                  <div class="row justify-content-center"> 
+                       <div class="form-group">                           
+                         <input type="text"  class="form-control" 
+                                style="width:275px;height: 35px;"
+                                 placeholder="Zipcode">
+                          </div>                         
+                     </div>
+             </div>
+             <div class="col-md-6 col-lg-4">     
+                  <div class="row justify-content-center"> 
+                         <div class="form-group">
+                         <input type="text"  class="form-control" 
+                                style="width:275px;height: 35px;"                                                             
+                                 placeholder="Distance">
+                          </div>  
+                     </div>
+             </div>
+             <div class="col-md-6 col-lg-4">
+              <div class="row justify-content-center">
+                      <div class="form-group">  
+                  <ng-select [items]="citySize"
+                          style="width:275px;font-weight: bold;"                       
+                          placeholder="City Size"
+                          >                           
+                  </ng-select> 
+                  </div>
+              </div>
+          </div>  
+     </div>
+          <!-- <div class="row">
+              <div class="col-md-6 col-lg-4">        
+                 <div class="row justify-content-center" style="margin-bottom:10px;">                               
+                   <ng-select [items]="minList"
+                          style="width:135px;font-weight: bold;"                       
+                          placeholder="Min Price"
+                          [(ngModel)]="minPrice"
+                          (ngModelChange)="filter()"  >
+                          <ng-template ng-label-tmp ng-option-tmp let-item="item">                               
+                              {{item | currency}}
+                          </ng-template>
+                   </ng-select>                    
+
+                   <ng-select [items]="maxList"
+                          style="width:135px;font-weight: bold;margin-left: 5px;"                       
+                          placeholder="Max Price"
+                          [(ngModel)]="maxPrice" 
+                          (ngModelChange)="filter()" >
+                          <ng-template ng-label-tmp ng-option-tmp let-item="item">                               
+                                  {{item | currency}}
+                          </ng-template>
+                   </ng-select>      
+                </div>             
+              </div>
+              <div class="col-md-6 col-lg-4">
+                  <div class="row justify-content-center" style="margin-bottom:10px;">
+                  <ng-select [items]="minList"
+                  style="width:135px;font-weight: bold;"                       
+                  placeholder="Min Cashflow"
+                  [(ngModel)]="minCashflow" 
+                  (ngModelChange)="filter()" >
+                  <ng-template ng-label-tmp ng-option-tmp let-item="item">                               
+                      {{item | currency}}
+                  </ng-template>
+                  </ng-select>                    
+
+                 <ng-select [items]="maxList"
+                  style="width:135px;font-weight: bold;margin-left: 5px;"                       
+                  placeholder="Max Cashflow"
+                  [(ngModel)]="maxCashflow" 
+                  (ngModelChange)="filter()" >
+                  <ng-template ng-label-tmp ng-option-tmp let-item="item">                               
+                          {{item | currency}}
+                  </ng-template>
+                 </ng-select>
+               </div> 
+             </div>
+               <div class="col-md-6 col-lg-4">
+                   <div class="row justify-content-center">
+                      <ng-select [items]="minList"
+                      style="width:135px;font-weight: bold;"                       
+                      placeholder="Min Revenue"
+                      [(ngModel)]="minRevenue" 
+                      (ngModelChange)="filter()" >
+                      <ng-template ng-label-tmp ng-option-tmp let-item="item">                               
+                          {{item | currency}}
+                      </ng-template>
+                    </ng-select>                    
+
+               <ng-select [items]="maxList"
+                      style="width:135px;font-weight: bold;margin-left: 5px;"                       
+                      placeholder="Max Revenue"
+                      [(ngModel)]="maxRevenue" 
+                      (ngModelChange)="filter()" >
+                      <ng-template ng-label-tmp ng-option-tmp let-item="item">                               
+                              {{item | currency}}
+                      </ng-template>
+               </ng-select> 
+               </div>
+            </div>                                            
+         </div>                     -->
+      </div>
+  </div>  
+      <div class="row">
+              <div class="col-sm-4 col-lg-4">
+                  <div class="row justify-content-center">
+                     <button class="btn btn-primary"                        
+                      (click)="search_Datatable()">
+                      Search By Data Table</button>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-lg-4">
+                   <div class="row justify-content-center">
+                     <button class="btn btn-primary"                     
+                     (click)="search_Mapview()">
+                     Search By Map View</button>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-lg-4">
+                   <div class="row justify-content-center">
+                     <button class="btn btn-primary"                     
+                     >
+                     Search By Street View</button>
+                  </div>
+              </div>       
+         </div>
+      </div>
+ </div>  
+</div> 
+
+
+  <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+    <!-- <div *ngIf="enableMapview" class="card card-map">
+      <ngui-map zoom="4" center="{{ pos }}">
+        <span *ngIf="productList">
+          <marker
+            *ngFor="let l of productList"
+            position="{{ l.LATITUDE }},{{ l.LONGITUDE }}"
+            (click)="clicked($event, l.COMPANY_ID)"
+          ></marker>
+        </span>
+        <info-window id="iw">
+          <div *ngIf="marker.display">
+            <div class="card" style="margin-left: 10px;height: 450px;">
+              <span *ngIf="productImage == null">
+                <img
+                  class="card-img-top"
+                  src="{{ '../assets/img/null.jpg' }}"
+                  height="200px"
+                  alt="Card image cap"
+                />
+              </span>
+              <span *ngIf="productImage != null">
+                <img
+                  class="card-img-top"
+                  src="{{ '../assets/img/' + productImage }}"
+                  height="200px"
+                  alt="Card image cap"
+                />
+              </span>
+
+              <div class="card-body">
+                <h3
+                  class="card-title"
+                  style="height:50px;overflow-y: hidden;font-size: 15px;font-weight: bold"
+                >
+                  {{ productTitle }}
+                </h3>
+                <p
+                  class="card-text"
+                  style="height: 73px;overflow-y: hidden;text-align: justify;font-size: 13px;"
+                >
+                  {{ productDesc }}
+                </p>
+                <div class="row">
+                  <h6 style="margin-left: 10px;">
+                    {{ productPrice | currency }}
+                  </h6>
+                  <h6 style="margin-left: auto; margin-right: 10px;">
+                    <i
+                      class="now-ui-icons location_pin"
+                      style="font-size:20px;color:red"
+                    ></i
+                    >&nbsp;{{ productPlace }}
+                  </h6>
+                </div>
+                <button
+                  class="btn btn-primary"
+                  style="font-size: 10px"
+                  (click)="detail(productData[0].COMPANY_ID)"
+                >
+                  View Documents
+                </button>
+              </div>
+            </div>
+          </div>
+        </info-window>
+      </ngui-map>
+    </div> -->
+
+    <div class="row">
+      <!-- <div  >  -->
+      <div class="col-lg-3 col-md-4 col-12 col-sm-6"
+        *ngFor="let l of productList"
+      >
+        <div class="card" style="height: 450px;">
+          <span *ngIf="l.IMG_NAME == null">
+            <img
+              class="card-img-top"
+              src="{{ '../assets/img/null.jpg' }}"
+              height="200px"
+              alt="Card image cap"
+            />
+          </span>
+          <span *ngIf="l.IMG_NAME != null">
+            <img
+              class="card-img-top"
+              src="{{ '../assets/img/' + l.IMG_NAME }}"
+              height="200px"
+              alt="Card image cap"
+            />
+          </span>
+          <div class="card-body">
+            <h3
+              class="card-title"
+              style="height:40px;overflow-y: hidden;font-size: 15px;font-weight: bold"
+            >
+              {{ l.COMPANY_NAME }}
+            </h3>
+            <p
+              class="card-text"
+              style="height: 73px;overflow-y: hidden;text-align: justify;font-size: 13px;"
+            >
+              {{ l.LONG_DESC }}
+            </p>
+            <hr />
+            <div class="row">
+              <h6 style="margin-left: 10px;">{{ l.RENT | currency }}</h6>
+              <h6 style="margin-left: auto; margin-right: 10px;">
+                <i class="now-ui-icons location_pin" style="color:red"></i>
+                &nbsp;{{ l.STATE }}
+              </h6>
+            </div>
+            <button
+              class="btn btn-primary"
+              style="font-size: 10px"
+              (click)="leaseDetail(l.BIZ_ID)"
+            >
+              View Documents
+            </button>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-6 col-lg-6 ">
+          <div class="form-group">
+            <!-- <label><h3>Choose business to create a checklist</h3></label> -->
+            <label><h3>Choose business</h3></label>
+            <ng-select
+              [items]="list"
+              [(ngModel)]="businessTitle"
+              bindLabel="TITLE"
+              bindValue="COMPANY_ID"
+              placeholder="Select Business"
+              (change)="buy_cmp_change()"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ul class="list-unstyled multi-steps">
+      <li
+        *ngFor="let l of CheckList"
+        [ngClass]="{ 'is-active': l.STATUS == 0 }"
+      >
+        {{ l.STEPS }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <!-- <div class="row"> -->
+    <div *ngIf="isChecklist" class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let l of CheckList">
+          <div class="form-group">
+            {{ l.ORDER_NUM }}.&nbsp; {{ l.STEPS }} &nbsp;&nbsp;
+            <input             
+              type="checkbox"
+              [checked]="l.STATUS"
+              style="float:right"
+              (change)="toggleVisibility(l.ORDER_NUM)"
+            />
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- </div>   -->
+    <div class="card-footer">
+      <button type="button" class="btn btn-success" (click)="updateProcess()">
+        <i class="fa fa-plus"></i> Update
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div >
+        <ul class="list-unstyled multi-steps">
+          <li *ngFor="let l of CheckList" [ngClass]="{'is-active': l.STATUS == 0}" >{{ l.STEPS }}</li>         
+        </ul>                
+      </div> -->
+
+<!-- </div> -->
+
+<!-- <div
+    bsModal
+    #myModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Line</h4>
+          <button
+            type="button"
+            class="close"
+            (click)="myModal.hide()"
+            aria-label="Close"
+            #close
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label> CheckList </label>
+            <textarea
+              rows="4"
+              cols="80"
+              class="form-control"
+              [(ngModel)]="line"
+              placeholder="Write Your Instruction Here..."
+            >
+            </textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="myModal.hide()"
+          >
+            Close
+          </button>
+          <button type="submit" (click)="add()" class="btn btn-info ">Add</button>
+        </div>
+      </div>
+    </div>
+  </div> -->

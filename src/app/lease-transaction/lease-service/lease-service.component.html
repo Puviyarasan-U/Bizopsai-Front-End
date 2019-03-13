@@ -1,0 +1,324 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <h3 *ngIf='isBuyer'>Tenant Services</h3>
+      <h3 *ngIf='isSeller'>Landlord Services</h3>
+
+      <p>Manage Proessional Services And Principle Agent Here...</p>
+    </div>
+    
+    <div class="card-body">  
+    <!-- <div>        
+          <div class="form-group">
+            <label>Choose Role</label> 
+                  <ng-select [items]="citySize"
+                          style="width:275px;font-weight: bold;"                       
+                          placeholder="Select Role"
+                          [(ngModel)]="user_role"
+                          (change)="onRoleChange()" >                           
+                  </ng-select> 
+          </div>
+    </div> -->
+    <div *ngIf='isBuyer'>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-primary">
+            <th> Transaction Id</th>
+            <th> Business </th>
+            <th> Address </th>
+            <th> Price </th>              
+            <th> Landlord Name </th>
+            <th> Priniciple Agent </th>
+            <th> Action </th>
+          </thead>
+          <tbody *ngFor="let l of buyerList | paginate: { itemsPerPage: 8, currentPage: p } ">
+            <tr>
+              <td> {{l.TRAN_ID}} </td>
+              <td> {{l.COMPANY_NAME}} </td>
+              <td> {{ l.ADDRESS }} </td>
+              <td> {{ l.RENT }}</td>              
+              <td> {{l.SELLER}} </td>
+              <td *ngIf='l.BUYER_PROF != undefined'> {{l.BUYER_PROF}} 
+                <!-- <a (click)='updateBuyerProf(l.TRAN_ID)' 
+                style="text-decoration-line: underline;cursor:pointer">
+                Change </a> -->
+                &nbsp;
+                <span (click)='updateBuyerProf(l.TRAN_ID)' >
+                    <i class="fa fa-edit tooltip-test" title="Change Professional" 
+                    style='font-size:20px;color:blue'></i>
+                </span>
+              </td>
+              <td *ngIf='l.BUYER_PROF == undefined'> <a (click)='changeBuyerProf(l.TRAN_ID)' 
+                     style="text-decoration-line: underline;cursor:pointer">
+                     Change Professional</a> </td>
+              <td> 
+                <!-- <a (click)='changeProfessional(l.TRAN_ID)' 
+                style="text-decoration-line: underline;cursor:pointer">Change Professional</a> -->
+                <a (click)='addServices(l.TRAN_ID)' 
+                   style="text-decoration-line: underline;cursor:pointer"> View Service</a>                
+              </td>
+            </tr>
+            <tr *ngIf='selected_TranId == l.TRAN_ID'>  
+                <td colspan="6">           
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th> Professional</th>
+                      <th> Name </th>
+                      <th> Mail </th>                     
+                      <th> Action</th> 
+                    </thead>                 
+                      <tbody> 
+                      <tr>
+                        <td> Valuation </td>
+                        <td *ngIf='valuationService.length > 0;else elseB'> {{valuationService[0].USERNAME}} </td>
+                        <ng-template #elseB> <td>-</td></ng-template>
+                        <td *ngIf='valuationService.length > 0;else elseB'> {{valuationService[0].EMAIL}} </td>
+                        <td *ngIf='valuationService.length >0;else addValuation'> 
+                            <a style="text-decoration-line: underline;cursor:pointer"
+                             (click)='changeService(l.TRAN_ID,"valuation")'>Change</a>&nbsp;
+                             
+                            <a style="text-decoration-line: underline;cursor:pointer"
+                             (click)='removeService(l.TRAN_ID,"valuation",valuationService[0].PROF_ID)'>Remove</a>
+                       </td>
+                       <ng-template #addValuation>
+                           <td> 
+                               <a style="text-decoration-line: underline;cursor:pointer"
+                                (click)='addService(l.TRAN_ID,"valuation")'>Add</a>                                     
+                           </td>
+                       </ng-template>
+                      </tr> 
+                       <tr>
+                          <td> Accounting </td>
+                          <td *ngIf='accountingService.length >0;else elseB '> {{accountingService[0].USERNAME}} </td>
+                          <ng-template #elseB> <td>-</td></ng-template>
+                          <td *ngIf='accountingService.length >0;else elseB '> {{accountingService[0].EMAIL}} </td>
+                          <td *ngIf='accountingService.length >0;else addAccounting'> 
+                              <a style="text-decoration-line: underline;cursor:pointer" (click)='changeService(l.TRAN_ID,"accounting")'>Change</a>&nbsp;
+                              <a style="text-decoration-line: underline;cursor:pointer" (click)='removeService(l.TRAN_ID,"accounting",accountingService[0].PROF_ID)'>Remove</a>
+                         </td>
+                         <ng-template #addAccounting>
+                             <td> 
+                                 <a style="text-decoration-line: underline;cursor:pointer" (click)='addService(l.TRAN_ID,"accounting")'>Add</a>                                     
+                            </td>
+                         </ng-template>
+                        </tr>  
+                       <tr>
+                            <td> Legal </td>
+                            <td *ngIf='legalService.length >0;else elseB '> {{legalService[0].USERNAME}} </td>
+                            <td *ngIf='legalService.length >0;else elseB '> {{legalService[0].EMAIL}} </td>
+                            <td *ngIf='legalService.length >0;else addLegal'> 
+                                <a style="text-decoration-line: underline;cursor:pointer" (click)='changeService(l.TRAN_ID,"legal")'>Change</a>&nbsp;
+                                <a style="text-decoration-line: underline;cursor:pointer" (click)='removeService(l.TRAN_ID,"legal",legalService[0].PROF_ID)'>Remove</a>
+                           </td>
+                           <ng-template #addLegal>
+                               <td> 
+                                   <a style="text-decoration-line: underline;cursor:pointer" (click)='addService(l.TRAN_ID,"legal")'>Add</a>                                     
+                              </td>
+                           </ng-template>
+                          </tr>
+                          <tr>
+                              <td> Business Broker </td>
+                              <td *ngIf='brokerService.length >0;else elseB '> {{brokerService[0].USERNAME}} </td>
+                              <td *ngIf='brokerService.length >0;else elseB '> {{brokerService[0].EMAIL}} </td>
+                              <td *ngIf='brokerService.length >0;else addBroker'> 
+                                  <a style="text-decoration-line: underline;cursor:pointer" (click)='changeService(l.TRAN_ID,"broker")'>Change</a>&nbsp;
+                                  <a style="text-decoration-line: underline;cursor:pointer" (click)='removeService(l.TRAN_ID,"broker",brokerService[0].PROF_ID)'>Remove</a>
+                             </td>
+                             <ng-template #addBroker>
+                                 <td> 
+                                     <a style="text-decoration-line: underline;cursor:pointer" (click)='addService(l.TRAN_ID,"broker")'>Add</a>                                     
+                                </td>
+                             </ng-template>
+                            </tr>    
+                          <tr>
+                              <td> Insurance </td>
+                              <td *ngIf='insuranceService.length >0;else elseB '> {{insuranceService[0].USERNAME}} </td>
+                              <td *ngIf='insuranceService.length >0;else elseB '> {{insuranceService[0].EMAIL}} </td>
+                              <td *ngIf='insuranceService.length >0;else addInsurance'> 
+                                  <a style="text-decoration-line: underline;cursor:pointer" (click)='changeService(l.TRAN_ID,"insurance")'>Change</a>&nbsp;
+                                  <a style="text-decoration-line: underline;cursor:pointer" (click)='removeService(l.TRAN_ID,"insurance",insuranceService[0].PROF_ID)'>Remove</a>
+                             </td>
+                             <ng-template #addInsurance>
+                                 <td> 
+                                     <a style="text-decoration-line: underline;cursor:pointer" (click)='addService(l.TRAN_ID,"insurance")'>Add</a>                                     
+                                </td>
+                             </ng-template>
+                            </tr>  
+                            <tr>
+                                <td> Construction </td>
+                                <td *ngIf='constructionService.length >0;else elseB '> {{constructionService[0].USERNAME}} </td>
+                                <td *ngIf='constructionService.length >0;else elseB '> {{constructionService[0].EMAIL}} </td>
+                                <td *ngIf='constructionService.length >0;else addConstruction'> 
+                                    <a style="text-decoration-line: underline;cursor:pointer" (click)='changeService(l.TRAN_ID,"construction")'>Change</a>&nbsp;
+                                    <a style="text-decoration-line: underline;cursor:pointer" (click)='removeService(l.TRAN_ID,"construction",constructionService[0].PROF_ID)'>Remove</a>
+                               </td>
+                               <ng-template #addConstruction>
+                                   <td> 
+                                       <a style="text-decoration-line: underline;cursor:pointer" (click)='addService(l.TRAN_ID,"construction")'>Add</a>                                     
+                                  </td>
+                               </ng-template>
+                              </tr> 
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+
+          </tbody>
+        </table>
+        <div class="row justify-content-center" style="margin:1rem;font-weight:bold;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf='isSeller'>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-primary">             
+            <th> Business </th>
+            <th> Address </th>
+            <th> Price </th>
+            <th> Principle Agent </th>
+            <th> Action</th> 
+          </thead>
+
+          <tbody *ngFor="let l of userPropertyList | paginate: { itemsPerPage: 8, currentPage: p } ">
+            <tr>                
+              <td> {{l.COMPANY_NAME}} </td>
+              <td> {{l.ADDRESS}} </td>
+              <td> {{l.RENT}} </td>
+                
+              <td *ngIf='l.PRINCIPLE_AGENT != undefined '> {{l.PRINCIPLE_AGENT}}
+                  &nbsp;
+                  <span (click)='updateProf(l.BUS_ENT_ID)' >
+                      <i class="fa fa-edit tooltip-test" title="Change Professional" 
+                      style='font-size:20px;color:blue'></i>
+                    </span>
+              </td>
+              <td *ngIf='l.PRINCIPLE_AGENT == undefined'> <a (click)='changeProfessional(l.BUS_ENT_ID)' 
+                     style="text-decoration-line: underline;cursor:pointer">
+                     Change Professional</a> </td>
+              <!-- <td> <a (click)='changeProfessional(l.TRAN_ID)' 
+                style="text-decoration-line: underline;cursor:pointer">Change Professional</a></td> -->
+              <td> <a (click)='viewBizServices(l.BUS_ENT_ID)' 
+                style="text-decoration-line: underline;cursor:pointer"> View Service</a> </td>
+            </tr>
+            <tr *ngIf='selected_ComId == l.BUS_ENT_ID'>  
+              <td colspan="6">           
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th> Professional</th>
+                    <th> Name </th>
+                    <th> Mail </th>                     
+                    <th> Action</th> 
+                  </thead>                 
+                    <tbody> 
+                    <tr>
+                      <td> Valuation </td>
+                      <td *ngIf='valuationService.length > 0;else elseB'> {{valuationService[0].USERNAME}} </td>
+                      <ng-template #elseB> <td>-</td></ng-template>
+                      <td *ngIf='valuationService.length > 0;else elseB'> {{valuationService[0].EMAIL}} </td>
+                      <td *ngIf='valuationService.length >0;else addValuation'> 
+                          <a style="text-decoration-line: underline;cursor:pointer"
+                           (click)='changeBizService(l.BUS_ENT_ID,"valuation")'>Change</a>&nbsp;
+                          <a style="text-decoration-line: underline;cursor:pointer"
+                           (click)='removeBizService(l.BUS_ENT_ID,"valuation",valuationService[0].PROF_ID)'>Remove</a>
+                     </td>
+                     <ng-template #addValuation>
+                         <td> 
+                             <a style="text-decoration-line: underline;cursor:pointer"
+                              (click)='addBizService(l.BUS_ENT_ID,"valuation")'>Add</a>                                     
+                         </td>
+                     </ng-template>
+                    </tr> 
+                     <tr>
+                        <td> Accounting </td>
+                        <td *ngIf='accountingService.length >0;else elseB '> {{accountingService[0].USERNAME}} </td>
+                        <ng-template #elseB> <td>-</td></ng-template>
+                        <td *ngIf='accountingService.length >0;else elseB '> {{accountingService[0].EMAIL}} </td>
+                        <td *ngIf='accountingService.length >0;else addAccounting'> 
+                            <a style="text-decoration-line: underline;cursor:pointer" (click)='changeBizService(l.BUS_ENT_ID,"accounting")'>Change</a>&nbsp;
+                            <a style="text-decoration-line: underline;cursor:pointer" (click)='removeBizService(l.BUS_ENT_ID,"accounting",accountingService[0].PROF_ID)'>Remove</a>
+                       </td>
+                       <ng-template #addAccounting>
+                           <td> 
+                               <a style="text-decoration-line: underline;cursor:pointer" (click)='addBizService(l.BUS_ENT_ID,"accounting")'>Add</a>                                     
+                          </td>
+                       </ng-template>
+                      </tr>  
+                     <tr>
+                          <td> Legal </td>
+                          <td *ngIf='legalService.length >0;else elseB '> {{legalService[0].USERNAME}} </td>
+                          <td *ngIf='legalService.length >0;else elseB '> {{legalService[0].EMAIL}} </td>
+                          <td *ngIf='legalService.length >0;else addLegal'> 
+                              <a style="text-decoration-line: underline;cursor:pointer" (click)='changeBizService(l.BUS_ENT_ID,"legal")'>Change</a>&nbsp;
+                              <a style="text-decoration-line: underline;cursor:pointer" (click)='removeBizService(l.BUS_ENT_ID,"legal",legalService[0].PROF_ID)'>Remove</a>
+                         </td>
+                         <ng-template #addLegal>
+                             <td> 
+                                 <a style="text-decoration-line: underline;cursor:pointer" (click)='addBizService(l.BUS_ENT_ID,"legal")'>Add</a>                                     
+                            </td>
+                         </ng-template>
+                        </tr>
+                        <tr>
+                            <td> Business Broker </td>
+                            <td *ngIf='brokerService.length >0;else elseB '> {{brokerService[0].USERNAME}} </td>
+                            <td *ngIf='brokerService.length >0;else elseB '> {{brokerService[0].EMAIL}} </td>
+                            <td *ngIf='brokerService.length >0;else addBroker'> 
+                                <a style="text-decoration-line: underline;cursor:pointer" (click)='changeBizService(l.BUS_ENT_ID,"broker")'>Change</a>&nbsp;
+                                <a style="text-decoration-line: underline;cursor:pointer" (click)='removeBizService(l.BUS_ENT_ID,"broker",brokerService[0].PROF_ID)'>Remove</a>
+                           </td>
+                           <ng-template #addBroker>
+                               <td> 
+                                   <a style="text-decoration-line: underline;cursor:pointer" (click)='addBizService(l.BUS_ENT_ID,"broker")'>Add</a>                                     
+                              </td>
+                           </ng-template>
+                          </tr>    
+                        <tr>
+                            <td> Insurance </td>
+                            <td *ngIf='insuranceService.length >0;else elseB '> {{insuranceService[0].USERNAME}} </td>
+                            <td *ngIf='insuranceService.length >0;else elseB '> {{insuranceService[0].EMAIL}} </td>
+                            <td *ngIf='insuranceService.length >0;else addInsurance'> 
+                                <a style="text-decoration-line: underline;cursor:pointer" (click)='changeBizService(l.BUS_ENT_ID,"insurance")'>Change</a>&nbsp;
+                                <a style="text-decoration-line: underline;cursor:pointer" (click)='removeBizService(l.BUS_ENT_ID,"insurance",insuranceService[0].PROF_ID)'>Remove</a>
+                           </td>
+                           <ng-template #addInsurance>
+                               <td> 
+                                   <a style="text-decoration-line: underline;cursor:pointer" (click)='addBizService(l.BUS_ENT_ID,"insurance")'>Add</a>                                     
+                              </td>
+                           </ng-template>
+                          </tr>  
+                          <tr>
+                              <td> Construction </td>
+                              <td *ngIf='constructionService.length >0;else elseB '> {{constructionService[0].USERNAME}} </td>
+                              <td *ngIf='constructionService.length >0;else elseB '> {{constructionService[0].EMAIL}} </td>
+                              <td *ngIf='constructionService.length >0;else addConstruction'> 
+                                  <a style="text-decoration-line: underline;cursor:pointer" (click)='changeBizService(l.BUS_ENT_ID,"construction")'>Change</a>&nbsp;
+                                  <a style="text-decoration-line: underline;cursor:pointer" (click)='removeBizService(l.BUS_ENT_ID,"construction",constructionService[0].PROF_ID)'>Remove</a>
+                             </td>
+                             <ng-template #addConstruction>
+                                 <td> 
+                                     <a style="text-decoration-line: underline;cursor:pointer" (click)='addBizService(l.BUS_ENT_ID,"construction")'>Add</a>                                     
+                                </td>
+                             </ng-template>
+                            </tr> 
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row justify-content-center" style="margin:1rem;font-weight:bold;">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+    
+
+    </div>      
+  </div>
+</div>
