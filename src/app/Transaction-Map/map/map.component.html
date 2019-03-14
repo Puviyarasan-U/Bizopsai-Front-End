@@ -94,50 +94,50 @@
 <div class="card">
   <div *ngIf="isbuyerList && !isProcess" class="card-body">
     <div *ngIf="!isSellerLogin" class="card">
-      <div class="card-header"><h4>Business Info</h4></div>
+      <div class="card-header"><h6>Business Info</h6></div>
       <div class="card-body">
         <dl class="row">
-          <dt class="col-sm-3"><h5>Business Name :</h5></dt>
+          <dt class="col-sm-3"><h6>Business Name :</h6></dt>
           <dd class="col-sm-3">
-            <h5>{{ buyerListBiz[0].TITLE }}</h5>
+            <h6>{{ buyerListBiz[0].TITLE }}</h6>
           </dd>
 
-          <dt class="col-sm-3"><h5>Address :</h5></dt>
+          <dt class="col-sm-3"><h6>Address :</h6></dt>
           <dd class="col-sm-3">
-            <h5>{{ buyerListBiz[0].ADDRESS }}</h5>
+            <h6>{{ buyerListBiz[0].ADDRESS }}</h6>
           </dd>
 
-          <dt class="col-sm-3 text-truncate"><h5>Rent :</h5></dt>
+          <dt class="col-sm-3 text-truncate"><h6>Rent :</h6></dt>
           <dd class="col-sm-3">
-            <h5>{{ buyerListBiz[0].PRICE | currency }}</h5>
+            <h6>{{ buyerListBiz[0].PRICE | currency }}</h6>
           </dd>
 
-          <dt class="col-sm-3 text-truncate"><h5>State :</h5></dt>
+          <dt class="col-sm-3 text-truncate"><h6>State :</h6></dt>
           <dd class="col-sm-3">
-            <h5>{{ buyerListBiz[0].STATE }}</h5>
+            <h6>{{ buyerListBiz[0].STATE }}</h6>
           </dd>
         </dl>
       </div>
     </div>
 
     <div *ngIf="!isSellerLogin" class="card">
-      <diV class="card-header"> <h4>Seller Info</h4></diV>
+      <diV class="card-header"> <h6>Seller Info</h6></diV>
       <div class="card-body">
         <dl class="row">
-          <dt class="col-sm-3"><h5>Seller :</h5></dt>
+          <dt class="col-sm-3"><h6>Seller :</h6></dt>
           <dd class="col-sm-3">
-            <h5>{{ buyerListBiz[0].SELLER }}</h5>
+            <h6>{{ buyerListBiz[0].SELLER }}</h6>
           </dd>
-          <dt class="col-sm-3"><h5>Principle Agent :</h5></dt>
+          <dt class="col-sm-3"><h6>Principle Agent :</h6></dt>
           <dd class="col-sm-3">
-            <h5>
+            <h6>
               <a
                 (click)="navigateProfDetail(buyerListBiz[0].SELLER_PROF_ID)"
                 style="text-decoration-line: underline;cursor:pointer"
               >
                 {{ buyerListBiz[0].SELLER_PROF }}
               </a>
-            </h5>
+            </h6>
           </dd>
         </dl>
         <button
@@ -153,9 +153,9 @@
           *ngIf="selected_ComId == buyerListBiz[0].BUS_ENT_ID"
         >
           <div *ngFor="let l of seller_services">
-            <h4 class="row">
+            <h6 class="row">
               {{ l.SERVICE_TYPE }}&nbsp;: {{ l.USERNAME }} &nbsp;
-            </h4>
+            </h6>
           </div>
         </div>
       </div>
@@ -184,28 +184,28 @@
           "
         >
           <diV class="card-header">
-            <h4>Buyer #{{ i + 1 }} Info</h4>
+            <h6>Buyer #{{ i + 1 }} Info</h6>
           </diV>
           <div class="card-body">
             <dl class="row">
-              <dt class="col-sm-3"><h5>Buyer :</h5></dt>
+              <dt class="col-sm-3"><h6>Buyer :</h6></dt>
               <dd class="col-sm-3">
-                <h5>{{ l.BUYER }}</h5>
+                <h6>{{ l.BUYER }}</h6>
               </dd>
-              <dt class="col-sm-3"><h5>Principle Agent :</h5></dt>
+              <dt class="col-sm-3"><h6>Principle Agent :</h6></dt>
               <dd class="col-sm-3">
-                <h5>
+                <h6>
                   <a
                     (click)="navigateProfDetail(buyerListBiz[0].SELLER_PROF_ID)"
                     style="text-decoration-line: underline;cursor:pointer"
                   >
                     {{ l.BUYER_PROF }}
                   </a>
-                </h5>
+                </h6>
               </dd>
-              <dt class="col-sm-3"><h5>Offer Price :</h5></dt>
+              <dt class="col-sm-3"><h6>Offer Price :</h6></dt>
               <dd class="col-sm-3">
-                <h5>{{ l.OFFER_PRICE }}</h5>
+                <h6>{{ l.OFFER_PRICE }}</h6>
               </dd>
             </dl>
             <div class="row">
@@ -240,9 +240,9 @@
             </div>
             <div class="card-body" *ngIf="selected_TranId == l.TRAN_ID">
               <div *ngFor="let l of services_list">
-                <h4 class="row">
+                <h6 class="row">
                   {{ l.SERVICE_TYPE }}&nbsp;: {{ l.USERNAME }} &nbsp;
-                </h4>
+                </h6>
               </div>
             </div>
           </div>
